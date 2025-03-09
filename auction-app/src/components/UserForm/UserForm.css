@@ -1,0 +1,88 @@
+
+/* Overlay (dim background when panel opens) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Side panel (hidden by default) */
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: -300px; /* Start hidden outside the screen */
+    width: 300px;
+    height: 100%;
+    background: white;
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transform: translateX(100%); /* initially move it off-screen */
+    transition: transform 0.3s ease-in-out;
+}
+
+.side-panel.active {
+    transform: translateX(0); /* Slide in to its normal position */
+}
+
+/* When active, slide in */
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.side-panel.active {
+    right: 0;
+}
+
+/* Close button (X) */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Button styles */
+.user-button {
+    padding: 10px;
+    background: #5c8eb8;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+.close-button{
+    width: 2rem;
+    height: 2rem;
+    background: gray;
+    position: relative;
+    top: -10px;
+    left: 200px;
+}
+
+/* Input fields */
+input {
+    width: 17.8rem;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

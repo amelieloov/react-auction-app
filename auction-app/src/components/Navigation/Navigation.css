@@ -1,0 +1,34 @@
+.navbar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 4rem;
+    border-bottom: solid 2px gray;
+}
+
+.navList{
+    list-style-type: none;
+}
+
+.navListItem{
+    font-size: 1.2rem;
+    margin: 1rem;
+    text-decoration: none;
+    color: #3b3b3b;
+    cursor: pointer;
+}
+
+.navListItem:hover{
+    color:gray;
+}
+
+.searchBar{
+    padding-top: 2rem;
+}
+
+.flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
