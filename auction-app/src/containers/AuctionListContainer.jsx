@@ -2,30 +2,29 @@
 import { useState, useEffect } from "react";
 import { GetAuctionsByUserID } from "../services/AuctionService";
 import AuctionList from "../components/AuctionList/AuctionList";
+import { useContext } from "react";
+import { AuctionContext } from "../contexts/AuctionContext";
 
 const AuctionListContainer = () => {
 
-    const [auctionList, setAuctionList] = useState([]);
+    const {auctions, setAuctions} = useContext(AuctionContext);
+    // const [auctionList, setAuctionList] = useState([]);
 
     useEffect(() => {
         const getAuctions = async () => {
-            const auctions = await GetAuctionsByUserID();
-            setAuctionList(auctions);
+            const auctionList = await GetAuctionsByUserID();
+            setAuctions(auctionList);
         }
 
         getAuctions();
     }, []);
-
-    useEffect(() => {
-        console.log("auctionsbyuserid", auctionList);
-    }, [auctionList]);
 
     const handleSearch = () => {
         console.log("you pressed the auction");
     }
 
     return(
-        <AuctionList auctionList={auctionList} handleSearch={handleSearch} viewType="dashboard"/>
+        <AuctionList auctionList={auctions} handleSearch={handleSearch} viewType="dashboard"/>
     )
 }
 

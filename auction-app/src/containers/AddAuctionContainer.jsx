@@ -48,7 +48,7 @@ const AddAuctionContainer = () => {
 
     return (
         <AuctionForm auction={auction} handleSubmit={handleSubmit} handleChange={handleChange}
-            handleFileChange={handleFileChange} previewUrl={previewUrl} buttonText="Post" />
+            handleFileChange={handleFileChange} previewUrl={previewUrl} rubric="Create auction" buttonText="Post" />
     )
 }
 

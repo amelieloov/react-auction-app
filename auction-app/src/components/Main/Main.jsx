@@ -5,6 +5,7 @@ import Dashboard from '../../pages/Dashboard';
 import DetailedAuctionInfo from '../../pages/DetailedAuctionInfo';
 import AddAuctionContainer from '../../pages/AddAuction';
 import UpdateAuctionContainer from '../../pages/UpdateAuction';
+import SearchResults from '../../pages/SearchResults';
 
 const Main = () => {
 
@@ -13,8 +14,9 @@ const Main = () => {
             <Route path="/" element={<Home/>}></Route>
             <Route path="/dashboard" element={<Dashboard/>}></Route>
             <Route path="/item/:id" element={<DetailedAuctionInfo/>}></Route>
-            <Route path="/add/auction" element={<AddAuctionContainer/>}></Route>
-            <Route path="/update/auction" element={<UpdateAuctionContainer/>}></Route>
+            <Route path="/auction/add" element={<AddAuctionContainer/>}></Route>
+            <Route path="/auction/update/:id" element={<UpdateAuctionContainer/>}></Route>
+            <Route path="/searchresults" element={<SearchResults/>}></Route>
         </Routes>
     )
 }

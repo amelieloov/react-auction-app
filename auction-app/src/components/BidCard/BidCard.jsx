@@ -1,12 +1,16 @@
 
 import './BidCard.css';
+import { useContext } from 'react';
+import { BidContext } from '../../contexts/BidContext';
 
-const BidCard = ({bid, showButton, onMouseOver, onMouseLeave}) => {
+const BidCard = ({bid}) => {
 
-    return(<div className="bid-card" onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+    const {deleteBid} = useContext(BidContext);
+
+    return(<div className="bid-card">
         <h2>{bid.auction.auctionTitle}</h2>
         <h2>Your bid: {bid.bidPrice}</h2>
-        {showButton && <button className="bid-button">🗑️</button>}
+        <button className="bid-button" onMouseDown={() => deleteBid(bid.bidID)}>🗑️</button>
     </div>)
 }
 

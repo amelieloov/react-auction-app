@@ -13,7 +13,7 @@ const UserForm = ({ username, password, handleChange, handleSubmit, buttonText, 
                     <input type="text" name="username" value={username} onChange={handleChange} />
                     <label htmlFor="password">Password</label>
                     <input type="password" name="password" value={password} onChange={handleChange} />
-                    <button className="user-button" type="submit">{buttonText}</button>
+                    <button className="user-button" type="submit" onClick={() => { setIsOpen(false)}}>{buttonText}</button>
                 </form>
             </div>
         </>

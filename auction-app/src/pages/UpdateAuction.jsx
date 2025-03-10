@@ -1,11 +1,11 @@
 
 import UpdateAuctionContainer from "../containers/UpdateAuctionContainer"
 
-const UpdateAuctionContainer = () => {
+const UpdateAuction = () => {
 
     return(
         <UpdateAuctionContainer/>
     )
 }
 
-export default UpdateAuctionContainer;
+export default UpdateAuction;

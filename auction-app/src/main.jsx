@@ -6,15 +6,18 @@ import { BrowserRouter } from 'react-router-dom'
 import AuthProvider from './contexts/AuthContext';
 import UIProvider from './contexts/UIContext';
 import AuctionProvider from './contexts/AuctionContext';
+import BidProvider from './contexts/BidContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <AuctionProvider>
-          <UIProvider>
-            <App />
-          </UIProvider>
+          <BidProvider>
+            <UIProvider>
+              <App />
+            </UIProvider>
+          </BidProvider>
         </AuctionProvider>
       </AuthProvider>
     </BrowserRouter>

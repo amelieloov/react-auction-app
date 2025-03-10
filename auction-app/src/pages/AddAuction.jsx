@@ -1,11 +1,11 @@
 
 import AddAuctionContainer from "../containers/AddAuctionContainer"
 
-const AddAuctionContainer = () => {
+const AddAuction = () => {
 
     return(
         <AddAuctionContainer/>
     )
 }
 
-export default AddAuctionContainer;
+export default AddAuction;

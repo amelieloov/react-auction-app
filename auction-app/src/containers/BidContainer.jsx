@@ -2,6 +2,7 @@
 import BidList from "../components/BidList/BidList";
 import { useState, useEffect } from "react";
 import { GetBidsByUserID } from '../services/BidService/'
+import { DeleteBid } from "../services/BidService";
 
 const BidContainer = () => {
     const [bids, setBids] = useState([]);
@@ -17,16 +18,17 @@ const BidContainer = () => {
         getBids();
     }, [])
 
-    useEffect(() => {
-        console.log("Updated bids:", bids); // ✅ Now logs correctly when state updates
-      }, [bids]);
-
     const onMouseOver = () => {
         setShowButton(true);
     }
 
     const onMouseLeave = () => {
         setShowButton(false);
+    }
+
+    const deleteBid = (bidId) => {
+        DeleteBid(bidId);
+        setBids((prevBids) => prevBids.filter(bid => bid.id !== bidId));
     }
 
     return(

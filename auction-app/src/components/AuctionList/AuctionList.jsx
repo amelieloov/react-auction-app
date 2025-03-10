@@ -10,7 +10,7 @@ const AuctionList = ({auctionList, handleSearch, viewType}) => {
     })
 
     return(<>
-        <ul className="auctionListStyle">{auctions}</ul>
+        {auctions.length !== 0 ? <ul className="auctionListStyle">{auctions}</ul> : <h2>You don't have any auctions yet.</h2>}
     </>)
 }
 

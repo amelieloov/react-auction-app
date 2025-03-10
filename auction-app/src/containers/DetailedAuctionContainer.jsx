@@ -18,10 +18,6 @@ const DetailedAuctionContainer = () => {
         getAuctions();
     }, []);
 
-    useEffect(() => {
-        console.log("auctionsbyid", pickedAuction);
-    }, [pickedAuction]);
-
     return(
         <AuctionCard auction={pickedAuction} viewType="detailed"/>
     )
