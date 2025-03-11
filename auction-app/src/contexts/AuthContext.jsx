@@ -9,15 +9,7 @@ const AuthProvider = (props) => {
 
     const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const [isLoggedIn, setIsLoggedIn] = useState(storedIsLoggedIn);
-
-    const [authError, setAuthError] = useState("");
-    const showError = (message, duration = 4000) => {
-        setAuthError(message);
-    
-        setTimeout(() => {
-          setAuthError("");
-        }, duration);
-      };
+    const [user, setUser] = useState({});
 
     const navigate = useNavigate();
   
@@ -35,8 +27,7 @@ const AuthProvider = (props) => {
         navigate("/");
     };
 
-    return (<AuthContext.Provider value={{ creds, setCreds, isLoggedIn, setIsLoggedIn, handleLogin, handleLogout, 
-    authError, showError }}>
+    return (<AuthContext.Provider value={{ creds, setCreds, isLoggedIn, setIsLoggedIn, handleLogin, handleLogout, user, setUser }}>
         {props.children}
     </AuthContext.Provider>)
 }

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { CreateAuction } from "../services/AuctionService";
 import { AuctionContext } from "../contexts/AuctionContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-hot-toast';
 
 import { useContext } from "react";
 
@@ -49,12 +50,8 @@ const AddAuctionContainer = () => {
         }
     }
 
-    const handleChange = (e) => {
-        setAuction({ ...auction, [e.target.name]: e.target.value });
-    }
-
     return (
-        <AuctionForm auction={auction} handleSubmit={handleSubmit} handleChange={handleChange}
+        <AuctionForm auction={auction} handleSubmit={handleSubmit}
             handleFileChange={handleFileChange} previewUrl={previewUrl} rubric="Create auction" buttonText="Post" />
     )
 }

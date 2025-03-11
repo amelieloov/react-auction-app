@@ -1,8 +1,8 @@
 
 import { useState, useContext, createContext } from "react";
-import { CreateAuction, DeleteAuction, SearchAuctions } from "../services/AuctionService";
+import { CreateAuction, DeleteAuction, SearchAuctions, GetAuctionsByUserID } from "../services/AuctionService";
 import { useNavigate } from "react-router-dom";
-import { ErrorContext } from "./ErrorContext";
+import { toast } from "react-hot-toast";
 
 export const AuctionContext = createContext();
 
@@ -10,55 +10,64 @@ const AuctionProvider = (props) => {
 
     const navigate = useNavigate();
     const [auctions, setAuctions] = useState([]);
-    const [auction, setAuction] = useState({auctionID: "", auctionTitle: "", auctionDescription: "", auctionPrice: "", 
-        endTime: "", image: null })
-    const {showError} = useContext(ErrorContext);
-    const [searchError, setSearchError] = useState(null);
-    // const showSearchError = (message, duration = 4000) => {
-    //     setSearchError(message);
+    const [auction, setAuction] = useState({
+        auctionID: "", auctionTitle: "", auctionDescription: "", auctionPrice: "",
+        endTime: "", image: null
+    })
+    const [searchError, setSearchError] = useState("");
+
+    const setSearchErrorTimer = () => {
+        setSearchError(true);
     
-    //     setTimeout(() => {
-    //       setSearchError("");
-    //     }, duration);
-    //   };
+        setTimeout(() => {
+          setSearchError(false);
+        }, 3000);
+      };
 
-    const handleSearch = async (condition) => {
-
-        try{
-            const data = await SearchAuctions(condition);
-            setAuctions(data);
-            data.length === 0 ? setSearchError(true) : setSearchError(false)
-            navigate(`/searchresults`)
-        } catch (error){
-            setSearchError(error.message);
-        }
+    const searchAuctions = async (condition) => {
+        const data = await SearchAuctions(condition);
+        setAuctions(data);
+        data.length === 0 && setSearchErrorTimer();
+        navigate(`/searchresults`)
     }
 
+    const getAuctionsByUser = async () => {
+        const auctionList = await GetAuctionsByUserID();
+        setAuctions(auctionList);
+    };
+
+
     const addAuction = async (auction) => {
-        try{
-            CreateAuction(bid);
+        try {
+            await CreateAuction(bid);
             setAuctions((prev) => [...prev, auction]);
             navigate("/dashboard");
-        } catch (error){
-            console.error("Updating auction failed:", error);
-            showError(error.message);
-            console.log(fetchError);
+        } catch (error) {
+            toast.error(error.message);
         }
     };
 
     const deleteAuction = async (id) => {
-        try{
-            DeleteAuction(id);
+        try {
+            await DeleteAuction(id);
             setAuctions((prev) => prev.filter(auction => auction.auctionID !== id));
         }
         catch (error) {
-            console.error("Updating auction failed:", error);
-            showError(error.message);
-            console.log(fetchError);
+            toast.error(error.message);
         }
     }
-    return (<AuctionContext.Provider value={{ auction, setAuction, auctions, setAuctions, 
-    handleSearch, addAuction, deleteAuction, searchError, setSearchError }}>
+
+    const checkIfClosed = (endTime) => {
+        const now = new Date();
+        const endTimeAsDate = new Date(endTime)
+        const isClosed = endTimeAsDate < now;
+        return isClosed;
+    }
+
+    return (<AuctionContext.Provider value={{
+        auction, setAuction, auctions, setAuctions, searchAuctions, addAuction,
+        deleteAuction, checkIfClosed, getAuctionsByUser, searchError, setSearchErrorTimer
+    }}>
         {props.children}
     </AuctionContext.Provider>)
 }

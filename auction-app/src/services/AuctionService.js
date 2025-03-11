@@ -35,11 +35,9 @@ const GetAuctionsByUserID = async () => {
 
   const data = await fetch(`https://localhost:7242/api/Auction/userId`, {
     headers: {
-      "Authorization": `Bearer ${localStorage.getItem("AuthToken")}`, // Attach token here
+      "Authorization": `Bearer ${localStorage.getItem("AuthToken")}`,
     },
   }).then(response => response.json());
-
-  console.log("auctionsbyuserid", data);
 
   return data;
 }
@@ -60,10 +58,8 @@ const CreateAuction = async (auctionobject) => {
       throw new Error(data.message || "An unexpected error occurred.");
     }
 
-    // const data = await response.json();
-    // console.log("Auction created successfully:", data);
   } catch (error) {
-    console.error("Error creating auction:", error);
+    throw(error);
   }
 };
 

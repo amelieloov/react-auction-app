@@ -4,16 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { BidContext } from '../../contexts/BidContext.jsx';
 import { AuctionContext } from '../../contexts/AuctionContext.jsx';
-import { ErrorContext } from '../../contexts/ErrorContext.jsx';
-import BidList from '../BidList/BidList.jsx';
+import { AuthContext } from '../../contexts/AuthContext.jsx';
 
 const AuctionCard = ({ auction, viewType }) => {
 
     const navigate = useNavigate();
     const { addBid } = useContext(BidContext);
-    const { deleteAuction } = useContext(AuctionContext);
-    const { error } = useContext(ErrorContext);
+    const { deleteAuction, checkIfClosed } = useContext(AuctionContext);
+    const { user } = useContext(AuthContext);
     const [inputValue, setInputValue] = useState("");
+    const isCurrentUser = auction?.user?.userID === user?.userID;
+    const isClosed = checkIfClosed(auction.endTime);
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
@@ -31,25 +32,32 @@ const AuctionCard = ({ auction, viewType }) => {
                     'card-default';
 
     return (
-        <div onClick={() => navigate(`/item/${auction.auctionID}`)} className={`auction-card ${cardClass}`}>
-            <img src={`https://localhost:7242${auction.image}`} alt="No picture" />
+        <div className={`auction-card ${cardClass}`}>
+            <div onMouseDown={() => navigate(`/item/${auction.auctionID}`)}>
+                <img src={`https://localhost:7242${auction.image}`} alt="No picture" />
 
-            <h2>{auction.auctionTitle}</h2>
-            <p>Current price: ${auction.auctionPrice}</p>
+                <div className='text'>
+                    <div>
+                        <h2>{auction.auctionTitle}</h2>
+                        <p>{!isClosed ? "Current price: " : "Winning bid: "} ${auction.auctionPrice}</p>
+                        {viewType === "detailed" && <div>
+                            <p>Created {formatDate(auction.startTime)} {auction?.user?.userName && "by"} {auction?.user?.userName}</p>
+                            <p>{!isClosed ? "Ends" : "Ended"} {formatDate(auction.endTime)}</p>
+                            {isClosed && <h2>The auction has ended.</h2>}
+                            {!isClosed && !isCurrentUser && <div className='add-bid'>
+                                <input type="number" value={inputValue} onChange={handleChange} />
+                                <button onClick={handleAddBid}>Add bid</button></div>}
+                        </div>}
+                    </div>
 
-            {viewType === "detailed" && <div>
-                <div >
-                    <h2>Description: {auction.auctionDescription}</h2>
-                    <p>Created {formatDate(auction.startTime)} {auction?.user?.userName && "by"} {auction?.user?.userName}</p>
-                    <p>Ends {formatDate(auction.endTime)}</p>
-                    <input type="number" value={inputValue} onChange={handleChange} />
-                    <button onClick={handleAddBid}>Add bid</button>
+                    {viewType === "detailed" && <div>
+                        <h2>Description:</h2>
+                        <p> {auction.auctionDescription}</p>
+                    </div>}
                 </div>
-                <BidList />
-            </div>}
+            </div>
 
             {viewType === "card-dashboard" && <div className="auction-button">
-                {error && (<p>{error}</p>)}
                 <button onMouseDown={() => navigate(`/auction/update/${auction.auctionID}`)}>✏️</button>
                 <button onMouseDown={() => deleteAuction(auction.auctionID)}>🗑️</button>
             </div>}

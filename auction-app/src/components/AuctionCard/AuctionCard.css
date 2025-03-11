@@ -1,66 +1,77 @@
-
-.auction-card{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.auction-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .auction-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-  
-.auction-card img {
-    width: 100%;
-    max-height: 200px;
-    object-fit: cover;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.auction-button{
-    display: flex;
-    flex-direction: row;
-    align-self: flex-end;
-    width: 4rem;
-    height: 2rem;
-    margin-right: 1.5rem;
+.auction-card img {
+  width: 100%;
+  height: 11rem;
+  object-fit: cover;
+}
+
+.auction-button {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+  width: 4rem;
+  height: 2rem;
+  margin-right: 1.5rem;
 }
 
 /* Styles for search view */
 .card-search {
-    font-size: 14px;
-    max-width: 200px;
-    width: 17rem;
-    height: 17rem;
-  }
-  
-  /* Styles for detailed view */
-  .card-detailed {
-    font-size: 16px;
-    width: 35%;
-    height: 35%;
-    margin: auto;
-    margin-top: 2rem;
-    transform: none;
-  }
-
-  .card-detailed:hover {
-    transform: none;
-    box-shadow: none;
+  font-size: 14px;
+  max-width: 200px;
+  width: 17rem;
+  height: 17rem;
 }
 
-  .card-dashboard{
-    width: 17rem;
-    height: 17rem;
-  }
-  
-  /* Default card style */
-  .card-default {
-    background-color: lightgray;
-    font-size: 15px;
-    max-width: 300px;
-  }
+/* Styles for detailed view */
+.card-detailed {
+  font-size: 16px;
+  width: 40%;
+  height: 60% !important;
+  margin: auto;
+  margin-top: 2rem;
+  transform: none;
+}
+
+.card-detailed:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.card-dashboard {
+  width: 17rem;
+  height: 17rem;
+}
+
+/* Default card style */
+.card-default {
+  background-color: lightgray;
+  font-size: 15px;
+  max-width: 300px;
+}
+
+.add-bid input {
+  width: 3rem;
+  margin-right: 5px;
+}
+
+.text{
+  display: flex;
+  flex-direction: row; /* Stack child elements vertically */
+  justify-content: flex-start;
+  gap: 2rem;
+}

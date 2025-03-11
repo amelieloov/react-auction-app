@@ -1,0 +1,19 @@
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.right {
+    flex: 1;
+    margin-top: -400px;
+    margin-right: 100px;
+    box-sizing: border-box;
+}
+
+.left {
+    flex: 1;
+    margin-right: 20px;
+    box-sizing: border-box;
+}

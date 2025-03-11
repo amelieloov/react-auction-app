@@ -1,6 +1,6 @@
 
 import UserForm from "../components/UserForm/UserForm"
-import { Login } from "../services/UserService";
+import { Login, GetUser } from "../services/UserService";
 import { AuthContext } from "../contexts/AuthContext";
 import { UIContext } from '../contexts/UIContext';
 import { toast } from 'react-hot-toast';
@@ -9,17 +9,18 @@ import { useContext } from "react";
 
 const LoginContainer = () => {
 
-    const {creds, setCreds, setIsLoggedIn, showError} = useContext(AuthContext);
+    const {creds, setCreds, setIsLoggedIn, setUser} = useContext(AuthContext);
     const {isLoginOpen, setIsLoginOpen} = useContext(UIContext);
 
     const handleLogin = async (e) => {
         try{
             e.preventDefault();
             const result = await Login(creds);
-            console.log(result);
             if(result){
                 setIsLoginOpen(false);
                 setIsLoggedIn(true);
+                var currentUser = GetUser();
+                setUser(currentUser);
                 setCreds({ username: "", password: "" });
             }
             toast.success('Successfully logged in.');

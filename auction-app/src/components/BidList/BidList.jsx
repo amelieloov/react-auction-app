@@ -5,7 +5,7 @@ import { BidContext } from "../../contexts/BidContext";
 
 const BidList = () => {
 
-    const {bids, deleteBidError} = useContext(BidContext);
+    const {bids} = useContext(BidContext);
 
     const bidList = bids.map(bid => {
         return(<BidCard key={bid.bidID} bid={bid}/>)
@@ -13,8 +13,7 @@ const BidList = () => {
 
     return(
         <div>
-            {deleteBidError && (<p>{deleteBidError}</p>)}
-            {bids.length !== 0 ? <ul>{bidList}</ul> : <h2>No bids.</h2>}
+            {bids.length > 0 ? <ul>{bidList}</ul> : <p></p>}
         </div>
     )
 }

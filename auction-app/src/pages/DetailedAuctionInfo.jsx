@@ -5,6 +5,8 @@ import { GetAuctionById } from "../services/AuctionService";
 import { useEffect, useContext } from "react";
 import { AuctionContext } from "../contexts/AuctionContext";
 import { BidContext } from "../contexts/BidContext";
+//import './DetailedAuctionInfo.css';
+import BidList from "../components/BidList/BidList";
 
 const DetailedAuctionInfo = () => {
 
@@ -23,7 +25,14 @@ const DetailedAuctionInfo = () => {
     }, [id]);
 
     return (
-        <AuctionCard auction={auction} viewType="detailed" />
+        <div className="grid">
+            <div className="left">
+                <AuctionCard auction={auction} viewType="detailed" />
+            </div>
+            <div className="right">
+                <BidList />
+            </div>
+        </div>
     )
 }
 

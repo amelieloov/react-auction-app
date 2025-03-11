@@ -49,24 +49,49 @@ const Login = async (loginData) => {
 }
 
 const UpdateUser = async (userData) => {
+
+  console.log("userdata", userData);
+
   try {
-    const response = await fetch("https://localhost:7242/api/User/login", {
+    const response = await fetch("https://localhost:7242/api/User", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("AuthToken")}`
       },
       body: JSON.stringify(userData),
     });
 
     if (!response.ok) {
       const data = await response.json();
+      console.log("json data", data);
       throw new Error(data.message || "An unexpected error occurred.");
     }
 
-    console.log("Successfully updated user:", data);
+    const data = await response.json();
+    console.log("json data", data);
+
   } catch (error) {
-    console.error("Error while updating user:", error);
+    throw(error);
   }
 }
 
-export {CreateUser, Login, UpdateUser};
+const GetUser = async () => {
+  const response = await fetch("https://localhost:7242/api/User", {
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("AuthToken")}`, // Attach token here
+    },
+  });
+
+  if (!response.ok) {
+    const data = await response.json();
+    throw new Error(data.message || "An unexpected error occurred.");
+  }
+
+  const data = await response.json();
+  console.log("user", data);
+
+  return data;
+}
+
+export {CreateUser, Login, UpdateUser, GetUser};

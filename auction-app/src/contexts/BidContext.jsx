@@ -1,8 +1,7 @@
 
-import { useState, useEffect, useContext, createContext } from "react";
+import { useState, useContext, createContext } from "react";
 import { AddBid } from "../services/BidService";
-import { DeleteBid } from "../services/BidService";
-import { ErrorContext } from "./ErrorContext";
+import { DeleteBid, GetBidsByUserID } from "../services/BidService";
 import { GetAuctionById } from "../services/AuctionService";
 import { AuctionContext } from "./AuctionContext";
 import { toast } from 'react-hot-toast';
@@ -12,16 +11,12 @@ export const BidContext = createContext();
 const BidProvider = (props) => {
 
     const [bids, setBids] = useState([]);
-    const {showError} = useContext(ErrorContext);
     const {setAuction} = useContext(AuctionContext);
-    const {deleteBidError, setDeleteBidError} = useState(""); 
-    const showDeleteBidError = (message, duration = 4000) => {
-        setAuthError(message);
-    
-        setTimeout(() => {
-          setAuthError("");
-        }, duration);
-      };
+
+    const getBidsByUser = async () => {     
+        const bidList = await GetBidsByUserID();
+        setBids(bidList);
+    }
 
     const addBid = async (newBid) => {
         try {
@@ -45,7 +40,7 @@ const BidProvider = (props) => {
         }
     }
 
-    return (<BidContext.Provider value={{ bids, setBids, addBid, deleteBid, deleteBidError, showDeleteBidError}}>
+    return (<BidContext.Provider value={{ bids, setBids, addBid, deleteBid, getBidsByUser}}>
         {props.children}
     </BidContext.Provider>)
 }

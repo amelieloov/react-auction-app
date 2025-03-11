@@ -5,7 +5,7 @@ import { UIContext } from "../contexts/UIContext";
 import { useContext } from "react";
 import { toast } from 'react-hot-toast';
 
-const AddUser = () => {
+const AddUserContainer = () => {
 
     const {creds, setCreds, showError} = useContext(AuthContext);
     const {isRegisterOpen, setIsRegisterOpen} = useContext(UIContext);
@@ -27,4 +27,4 @@ const AddUser = () => {
 
 }
 
-export default AddUser;
+export default AddUserContainer;

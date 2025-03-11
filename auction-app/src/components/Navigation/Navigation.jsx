@@ -2,14 +2,12 @@
 import { NavLink } from "react-router-dom";
 import './Navigation.css';
 import SearchBar from "../SearchBar/SearchBar";
-import { AuctionContext } from "../../contexts/AuctionContext";
 import { UIContext } from '../../contexts/UIContext';
 import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from 'react';
 
 const Navigation = () => {
 
-    const { handleSearch } = useContext(AuctionContext);
     const { setIsLoginOpen, setIsRegisterOpen, setIsUpdateOpen } = useContext(UIContext);
     const { isLoggedIn, handleLogin, handleLogout } = useContext(AuthContext);
 
@@ -20,7 +18,7 @@ const Navigation = () => {
                     <h1>Tredera</h1>
                 </div>
                 <div className="center">
-                    <SearchBar handleSearch={handleSearch} />
+                    <SearchBar />
                 </div>
                 <div className="right">
                     <NavLink to="/" className="navListItem">Home</NavLink>

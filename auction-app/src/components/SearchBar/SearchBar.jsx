@@ -1,17 +1,15 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import './SearchBar.css'
-import { useContext } from "react";
 import { AuctionContext } from "../../contexts/AuctionContext";
-import { ErrorContext } from "../../contexts/ErrorContext";
 
-const SearchBar = ({handleSearch}) => {
+const SearchBar = () => {
 
     const [inputValue, setInputValue] = useState("");
-    const {searchError} = useContext(AuctionContext);
+    const {searchAuctions, searchError} = useContext(AuctionContext);
 
     const onSearch = (e) => {
         if(e.key === "Enter"){
-            handleSearch(inputValue);
+            searchAuctions(inputValue);
             setInputValue("");
         }
     }

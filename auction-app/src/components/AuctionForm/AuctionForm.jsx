@@ -2,16 +2,18 @@
 import './AuctionForm.css';
 import { useContext } from 'react';
 import { AuctionContext } from '../../contexts/AuctionContext';
-import { ErrorContext } from '../../contexts/ErrorContext';
 
-const AuctionForm = ({ auction, handleSubmit, handleChange, handleFileChange, previewUrl, rubric, buttonText }) => {
+const AuctionForm = ({ auction, handleSubmit, handleFileChange, previewUrl, rubric, buttonText }) => {
 
-    const {error} = useContext(ErrorContext);
+    const {setAuction} = useContext(AuctionContext);
+    
+    const handleChange = (e) => {
+        setAuction({ ...auction, [e.target.name]: e.target.value });
+    }
 
     return (
         <form onSubmit={handleSubmit} className="formStyle">
             <h1>{rubric}</h1>
-            {error && (<p>{error}</p>)}
 
             <div className="unit">
                 <label htmlFor="title">Title</label>
