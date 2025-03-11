@@ -3,27 +3,33 @@ import UserForm from "../components/UserForm/UserForm"
 import { Login } from "../services/UserService";
 import { AuthContext } from "../contexts/AuthContext";
 import { UIContext } from '../contexts/UIContext';
+import { toast } from 'react-hot-toast';
 
 import { useContext } from "react";
 
 const LoginContainer = () => {
 
-    const {creds, setCreds, setIsLoggedIn} = useContext(AuthContext);
+    const {creds, setCreds, setIsLoggedIn, showError} = useContext(AuthContext);
     const {isLoginOpen, setIsLoginOpen} = useContext(UIContext);
 
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         try{
             e.preventDefault();
-            await Login(creds);
-            setIsLoginOpen(false);
-            setIsLoggedIn(true);
+            const result = await Login(creds);
+            console.log(result);
+            if(result){
+                setIsLoginOpen(false);
+                setIsLoggedIn(true);
+                setCreds({ username: "", password: "" });
+            }
+            toast.success('Successfully logged in.');
         } catch (error){
-            console.log("Error while logging in: ", error);
+            toast.error("Invalid credentials.")
         }
     }
 
     return(
-        <UserForm handleSubmit={handleSubmit} text="Login" isOpen={isLoginOpen} setIsOpen={setIsLoginOpen}/>
+        <UserForm handleSubmit={handleLogin} text="Login" isOpen={isLoginOpen} setIsOpen={setIsLoginOpen}/>
     )
 
 }

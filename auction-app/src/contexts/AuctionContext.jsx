@@ -1,7 +1,8 @@
 
-import { useState, createContext } from "react";
+import { useState, useContext, createContext } from "react";
 import { CreateAuction, DeleteAuction, SearchAuctions } from "../services/AuctionService";
 import { useNavigate } from "react-router-dom";
+import { ErrorContext } from "./ErrorContext";
 
 export const AuctionContext = createContext();
 
@@ -11,33 +12,53 @@ const AuctionProvider = (props) => {
     const [auctions, setAuctions] = useState([]);
     const [auction, setAuction] = useState({auctionID: "", auctionTitle: "", auctionDescription: "", auctionPrice: "", 
         endTime: "", image: null })
-    const [fetchError, setFetchError] = useState(null);
+    const {showError} = useContext(ErrorContext);
+    const [searchError, setSearchError] = useState(null);
+    // const showSearchError = (message, duration = 4000) => {
+    //     setSearchError(message);
+    
+    //     setTimeout(() => {
+    //       setSearchError("");
+    //     }, duration);
+    //   };
 
     const handleSearch = async (condition) => {
 
         try{
             const data = await SearchAuctions(condition);
             setAuctions(data);
-            data.length === 0 ? setFetchError(true) : setFetchError(false)
+            data.length === 0 ? setSearchError(true) : setSearchError(false)
             navigate(`/searchresults`)
         } catch (error){
-            setFetchError(error.message);
+            setSearchError(error.message);
         }
-
-        //auctions ? setFetchError(false) : setFetchError(true);
     }
 
-    const addAuction = (auction) => {
-        CreateAuction(bid);
-        setAuctions((prev) => [...prev, auction]);
+    const addAuction = async (auction) => {
+        try{
+            CreateAuction(bid);
+            setAuctions((prev) => [...prev, auction]);
+            navigate("/dashboard");
+        } catch (error){
+            console.error("Updating auction failed:", error);
+            showError(error.message);
+            console.log(fetchError);
+        }
     };
 
-    const deleteAuction = (id) => {
-        DeleteAuction(id);
-        setAuctions((prev) => prev.filter(auction => auction.auctionID !== id));
+    const deleteAuction = async (id) => {
+        try{
+            DeleteAuction(id);
+            setAuctions((prev) => prev.filter(auction => auction.auctionID !== id));
+        }
+        catch (error) {
+            console.error("Updating auction failed:", error);
+            showError(error.message);
+            console.log(fetchError);
+        }
     }
-    return (<AuctionContext.Provider value={{ auction, setAuction, auctions, setAuctions, fetchError, setFetchError, 
-    handleSearch, addAuction, deleteAuction }}>
+    return (<AuctionContext.Provider value={{ auction, setAuction, auctions, setAuctions, 
+    handleSearch, addAuction, deleteAuction, searchError, setSearchError }}>
         {props.children}
     </AuctionContext.Provider>)
 }

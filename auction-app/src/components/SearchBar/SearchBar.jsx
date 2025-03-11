@@ -2,11 +2,12 @@ import { useState } from "react"
 import './SearchBar.css'
 import { useContext } from "react";
 import { AuctionContext } from "../../contexts/AuctionContext";
+import { ErrorContext } from "../../contexts/ErrorContext";
 
 const SearchBar = ({handleSearch}) => {
 
     const [inputValue, setInputValue] = useState("");
-    const {fetchError} = useContext(AuctionContext);
+    const {searchError} = useContext(AuctionContext);
 
     const onSearch = (e) => {
         if(e.key === "Enter"){
@@ -21,7 +22,7 @@ const SearchBar = ({handleSearch}) => {
 
     return(
         <input className="search-bar" type="text" value={inputValue} onChange={onChange} onKeyDown={onSearch}
-        placeholder= {fetchError ? "No results" : "Search auctions..."}/>
+        placeholder= {searchError ? "No results" : "Search auctions..."}/>
     )
 }
 

@@ -7,18 +7,44 @@ import AuthProvider from './contexts/AuthContext';
 import UIProvider from './contexts/UIContext';
 import AuctionProvider from './contexts/AuctionContext';
 import BidProvider from './contexts/BidContext.jsx';
+import ErrorProvider from './contexts/ErrorContext.jsx';
+import { Toaster } from 'react-hot-toast';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <AuctionProvider>
-          <BidProvider>
-            <UIProvider>
-              <App />
-            </UIProvider>
-          </BidProvider>
-        </AuctionProvider>
+        <ErrorProvider>
+          <AuctionProvider>
+            <BidProvider>
+              <UIProvider>
+                <App />
+                <Toaster
+                  position="top-center"
+                  toastOptions={{
+                    style: {
+                      border: '1px solid #ccc',
+                      padding: '12px',
+                      color: '#333',
+                    },
+                    success: {
+                      iconTheme: {
+                        primary: '#4caf50',
+                        secondary: '#fff',
+                      },
+                    },
+                    error: {
+                      iconTheme: {
+                        primary: '#f44336',
+                        secondary: '#fff',
+                      },
+                    },
+                  }}
+                />
+              </UIProvider>
+            </BidProvider>
+          </AuctionProvider>
+        </ErrorProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

@@ -3,25 +3,26 @@ import { CreateUser } from "../services/UserService";
 import { AuthContext } from "../contexts/AuthContext";
 import { UIContext } from "../contexts/UIContext";
 import { useContext } from "react";
+import { toast } from 'react-hot-toast';
 
 const AddUser = () => {
 
-    const {creds, setCreds} = useContext(AuthContext);
+    const {creds, setCreds, showError} = useContext(AuthContext);
     const {isRegisterOpen, setIsRegisterOpen} = useContext(UIContext);
 
-
-    const handleChange = (e) => {
-        setCreds({...creds, [e.target.name]: e.target.value});
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        await CreateUser(creds);
-        setIsRegisterOpen(false);
+    const handleAddUser = async (e) => {
+        try{
+            e.preventDefault();
+            await CreateUser(creds);
+            setIsRegisterOpen(false);
+            setCreds({ username: "", password: "" });
+        } catch (error){
+            toast.error(error.message);
+        }
     }
 
     return(
-        <UserForm handleSubmit={handleSubmit} text="Register" isOpen={isRegisterOpen} setIsOpen={setIsRegisterOpen}/>
+        <UserForm handleSubmit={handleAddUser} text="Register" isOpen={isRegisterOpen} setIsOpen={setIsRegisterOpen}/>
     )
 
 }

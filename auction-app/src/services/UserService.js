@@ -8,15 +8,15 @@ const CreateUser = async (userData) => {
         },
         body: JSON.stringify(userData),
       });
-  
+
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
+        throw new Error(data.message || "An unexpected error occurred.");
       }
-  
-      const data = await response.json();
+
       console.log("User created successfully:", data);
     } catch (error) {
-      console.error("Error creating user:", error);
+      throw(error);
     }
   };
 
@@ -32,20 +32,19 @@ const Login = async (loginData) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      const data = await response.json();
+      throw new Error(data.message || "An unexpected error occurred.");
     }
 
     const data = await response.json();
-
-    // Assuming the backend returns the JWT token
-    const token = data.token; // Adjust the path according to your API response structure
-
-    // Store the token in localStorage
+    const token = data.token;
     localStorage.setItem("AuthToken", token);
 
-    console.log("Successfully logged in:", token);
+    if(token){
+      return true;
+    }
   } catch (error) {
-    console.error("Error while logging in:", error);
+    throw(error);
   }
 }
 
@@ -60,10 +59,10 @@ const UpdateUser = async (userData) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      const data = await response.json();
+      throw new Error(data.message || "An unexpected error occurred.");
     }
 
-    const data = await response.json();
     console.log("Successfully updated user:", data);
   } catch (error) {
     console.error("Error while updating user:", error);

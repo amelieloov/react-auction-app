@@ -1,17 +1,23 @@
 
 import AuctionForm from "../components/AuctionForm/AuctionForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CreateAuction } from "../services/AuctionService";
 import { AuctionContext } from "../contexts/AuctionContext";
+import { useNavigate } from "react-router-dom";
 
 import { useContext } from "react";
 
 const AddAuctionContainer = () => {
 
-    const {auction} = useContext(AuctionContext);
+    const {auction, setAuction} = useContext(AuctionContext);
     const [selectedImage, setSelectedImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
-    const [uploadMessage, setUploadMessage] = useState("");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setAuction({auctionID: "", auctionTitle: "", auctionDescription: "", auctionPrice: "", 
+            endTime: "", image: null })
+    }, [])
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -36,9 +42,10 @@ const AddAuctionContainer = () => {
             }
 
             await CreateAuction(formData);
+            navigate("/dashboard");
 
         } catch (error) {
-            console.error("Adding auction failed:", error);
+            toast.error(error.message);
         }
     }
 

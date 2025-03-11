@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 const UserForm = ({ handleSubmit, text, isOpen, setIsOpen }) => {
 
-    const { creds, setCreds} = useContext(AuthContext);
+    const { creds, setCreds, authError } = useContext(AuthContext);
 
     const handleChange = (e) => {
         setCreds({ ...creds, [e.target.name]: e.target.value });
@@ -22,7 +22,8 @@ const UserForm = ({ handleSubmit, text, isOpen, setIsOpen }) => {
                     <input type="text" name="username" value={creds.username} onChange={handleChange} />
                     <label htmlFor="password">Password</label>
                     <input type="password" name="password" value={creds.password} onChange={handleChange} />
-                    <button className="user-button" type="submit" onClick={() => { setIsOpen(false) }}>{text}</button>
+                    {authError && (<p>{authError}</p>)}
+                    <button className="user-button" type="submit" >{text}</button>
                 </form>
             </div>
         </>

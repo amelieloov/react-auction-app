@@ -5,12 +5,17 @@ import { UpdateAuction } from "../services/AuctionService";
 import { AuctionContext } from "../contexts/AuctionContext";
 import { useParams } from "react-router-dom";
 import { GetAuctionById } from "../services/AuctionService";
+import { ErrorContext } from "../contexts/ErrorContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-hot-toast';
 
 const UpdateAuctionContainer = () => {
 
-    const { auction, setAuction, fetchError, setFetchError } = useContext(AuctionContext);
+    const { auction, setAuction } = useContext(AuctionContext);
+    const {error, showError} = useContext(ErrorContext);
     const [selectedImage, setSelectedImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const navigate = useNavigate();
 
     const { id } = useParams();
 
@@ -33,10 +38,10 @@ const UpdateAuctionContainer = () => {
         }
     }
 
-    const handleSubmit = async (e) => {
+    const handleUpdateAuction = async (e) => {
         try {
             e.preventDefault();
-            setFetchError("");
+            showError("");
 
             const formData = new FormData();
             formData.append("auctionID", id);
@@ -51,10 +56,9 @@ const UpdateAuctionContainer = () => {
             console.log(auction);
 
             await UpdateAuction(formData);
+            navigate("/dashboard");
         } catch (error) {
-            console.error("Updating auction failed:", error);
-            setFetchError(error.message);
-            console.log(fetchError);
+            toast.error(error.message);
         }
     }
 
@@ -63,7 +67,7 @@ const UpdateAuctionContainer = () => {
     }
 
     return (
-        <AuctionForm auction={auction} handleSubmit={handleSubmit} handleChange={handleChange}
+        <AuctionForm auction={auction} handleSubmit={handleUpdateAuction} handleChange={handleChange}
             handleFileChange={handleFileChange} previewUrl={previewUrl} rubric="Update auction" buttonText="Update" />
     )
 }

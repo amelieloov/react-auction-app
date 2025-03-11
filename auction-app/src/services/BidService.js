@@ -4,18 +4,18 @@ const AddBid = async (bidData) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("AuthToken")}`,
         },
         body: JSON.stringify(bidData),
       });
   
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
+        throw new Error(data.message || "An unexpected error occurred.");
       }
-  
-      const data = await response.json();
-      console.log("Bid created successfully:", data);
+
     } catch (error) {
-      console.error("Error creating bid:", error);
+      throw(error);
     }
   };
 
@@ -30,13 +30,12 @@ const AddBid = async (bidData) => {
       });
   
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
+        throw new Error(data.message || "An unexpected error occurred.");
       }
-  
-      const data = await response.json();
-      console.log("Bid deleted successfully:", data);
+      
     } catch (error) {
-      console.error("Error deleting bid:", error);
+      throw(error);
     }
   };
 

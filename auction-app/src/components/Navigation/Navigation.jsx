@@ -13,10 +13,6 @@ const Navigation = () => {
     const { setIsLoginOpen, setIsRegisterOpen, setIsUpdateOpen } = useContext(UIContext);
     const { isLoggedIn, handleLogin, handleLogout } = useContext(AuthContext);
 
-    const handleAuth = () => {
-        {isLoggedIn ? handleLogout : handleLogin, setIsLoginOpen(true)};
-    }
-
     return (
         <nav className="navbar">
             <ul className="nav-list">
@@ -29,7 +25,7 @@ const Navigation = () => {
                 <div className="right">
                     <NavLink to="/" className="navListItem">Home</NavLink>
                     {isLoggedIn && <NavLink to="/dashboard" className="navListItem">Dashboard</NavLink>}
-                    <li className="navListItem" onMouseDown={handleAuth}>{isLoggedIn ? 'Logout' : 'Login'}</li>
+                    <li className="navListItem" onMouseDown={isLoggedIn ? handleLogout : () => setIsLoginOpen(true)}>{isLoggedIn ? 'Logout' : 'Login'}</li>
                     {!isLoggedIn && <li className="navListItem" onMouseDown={() => setIsRegisterOpen(true)}>Register</li>}
                     {isLoggedIn && <li className="navListItem" onMouseDown={() => setIsUpdateOpen(true)}>Edit Profile</li>}
                     <li></li>

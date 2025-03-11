@@ -9,14 +9,15 @@ const UpdateUserContainer = () => {
     const {creds, setCreds} = useContext(AuthContext);
     const {isUpdateOpen, setIsUpdateOpen} = useContext(UIContext);
 
-    const handleSubmit = async (e) => {
+    const handleUpdateUser = async (e) => {
         e.preventDefault();
         await UpdateUser(creds);
         setIsUpdateOpen(false);
+        setCreds({ username: "", password: "" });
     }
 
     return(
-        <UserForm handleSubmit={handleSubmit} text="Edit Profile" isOpen={isUpdateOpen} setIsOpen={setIsUpdateOpen}/>
+        <UserForm handleSubmit={handleUpdateUser} text="Edit Profile" isOpen={isUpdateOpen} setIsOpen={setIsUpdateOpen}/>
     )
 
 }

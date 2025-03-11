@@ -56,7 +56,8 @@ const CreateAuction = async (auctionobject) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      const data = await response.json();
+      throw new Error(data.message || "An unexpected error occurred.");
     }
 
     // const data = await response.json();
@@ -78,27 +79,31 @@ const UpdateAuction = async (auctionobject) => {
       body: auctionobject
     })
 
-    // const data = await response.json();
-
     if (!response.ok) {
-      const data = await response.json();  // Parse the response body only if it's not OK
+      const data = await response.json();
       throw new Error(data.message || "An unexpected error occurred.");
     }
-    // const data = await response.json();
-    // console.log("Auction created successfully:", data);
+
   } catch (error) {
     throw(error);
   }
 }
 
 const DeleteAuction = async (id) => {
-  const url = `https://localhost:7242/api/Auction?auctionid=${id}`
-
-  await fetch(url), {
-    method: 'DELETE',
-    headers: {
-      "Authorization": `Bearer ${localStorage.getItem("AuthToken")}`,
+  try{
+    const response = await fetch(`https://localhost:7242/api/Auction?auctionid=${id}`, {
+      method: 'DELETE',
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("AuthToken")}`,
+      }
+    })
+  
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || "An unexpected error occurred.");
     }
+  } catch (error){
+    throw(error)
   }
 }
 
