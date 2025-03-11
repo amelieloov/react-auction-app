@@ -9,17 +9,12 @@
     padding-left: 2%;
     display: grid;
     grid-template-rows: 5;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
 .unit{
     display: flex;
     flex-direction: column;
-}
-
-input{
-    padding: 5px 10px; /* Add horizontal padding and vertical padding (optional) */
-    line-height: normal; /* Ensure the line height doesn't center the text */
 }
 
 .title-input{
@@ -28,7 +23,7 @@ input{
 
 .description-input{
     width: 20rem;
-    height: 6rem;
+    height: 5rem;
     padding: 5px;
 }
 

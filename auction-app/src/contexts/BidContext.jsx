@@ -8,18 +8,7 @@ export const BidContext = createContext();
 
 const BidProvider = (props) => {
 
-    //const [bid, setBid] = useState({});
     const [bids, setBids] = useState([]);
-
-    useEffect(() => {
-        const getBids = async () => {
-            const bidList = await GetBidsByUserID();
-            console.log("bidList", bidList)
-            setBids(bidList);
-        }
-
-        getBids();
-    }, [])
 
     const addBid = (newBid) => {
         AddBid(bid);

@@ -8,22 +8,22 @@ import { useContext } from "react";
 
 const LoginContainer = () => {
 
-    const {creds, setCreds} = useContext(AuthContext);
+    const {creds, setCreds, setIsLoggedIn} = useContext(AuthContext);
     const {isLoginOpen, setIsLoginOpen} = useContext(UIContext);
 
-    const handleChange = (e) => {
-        setCreds({...creds, [e.target.name]: e.target.value});
-    }
-
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        await Login(creds);
-        setIsLoginOpen(false);
+        try{
+            e.preventDefault();
+            await Login(creds);
+            setIsLoginOpen(false);
+            setIsLoggedIn(true);
+        } catch (error){
+            console.log("Error while logging in: ", error);
+        }
     }
 
     return(
-        <UserForm username={creds.username} password={creds.password} handleChange={handleChange} handleSubmit={handleSubmit}
-        buttonText="Login" isOpen={isLoginOpen} setIsOpen={setIsLoginOpen}/>
+        <UserForm handleSubmit={handleSubmit} text="Login" isOpen={isLoginOpen} setIsOpen={setIsLoginOpen}/>
     )
 
 }

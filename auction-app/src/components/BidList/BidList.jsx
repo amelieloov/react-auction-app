@@ -13,7 +13,7 @@ const BidList = () => {
 
     return(
         <div>
-            {bids.length !== 0 ? <ul>{bidList}</ul> : <h2>You don't have any bids yet.</h2>}
+            {bids.length !== 0 ? <ul>{bidList}</ul> : <h2>No bids yet.</h2>}
         </div>
     )
 }

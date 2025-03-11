@@ -1,7 +1,7 @@
 import './AuctionCard.css';
 import { formatDate } from '../../utils/DateUtils.js';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { BidContext } from '../../contexts/BidContext.jsx';
 import { AuctionContext } from '../../contexts/AuctionContext.jsx';
 
@@ -10,14 +10,22 @@ const AuctionCard = ({ auction, viewType }) => {
     const navigate = useNavigate();
     const {addBid} = useContext(BidContext);
     const {deleteAuction} = useContext(AuctionContext);
+    const [inputValue, setInputValue] = useState("");
+
+    const handleChange = (e) => {
+        setInputValue(e.target.value);
+    }
+
+    const handleAddBid = () => {
+        addBid(inputValue);
+        setInputValue("");
+    }
 
     const cardClass = 
     viewType === 'search' ? 'card-search' : 
     viewType === 'detailed' ? 'card-detailed' : 
     viewType = 'dashboard' ? 'card-dashboard' : 
     'card-default';
-
-    console.log(viewType);
 
     return (
         <div className={`auction-card ${cardClass}`}>
@@ -30,7 +38,9 @@ const AuctionCard = ({ auction, viewType }) => {
                 <h2>Description: {auction.auctionDescription}</h2>
                 <p>Created {formatDate(auction.startTime)} {auction?.user?.userName && "by"} {auction?.user?.userName}</p>
                 <p>Ends {formatDate(auction.endTime)}</p>
-                <button onClick={addBid}>Add bid</button></div>}
+                <input type="number" value={inputValue} onChange={handleChange}/>
+                <button onClick={handleAddBid}>Add bid</button>
+                </div>}
 
             {viewType === "card-dashboard" && <div className="auction-button">
                 <button onMouseDown={() => navigate(`/auction/update/${auction.auctionID}`)}>✏️</button>

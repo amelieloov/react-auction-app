@@ -1,11 +1,20 @@
 
 import './AuctionForm.css';
+import { useContext } from 'react';
+import { AuctionContext } from '../../contexts/AuctionContext';
 
 const AuctionForm = ({ auction, handleSubmit, handleChange, handleFileChange, previewUrl, rubric, buttonText }) => {
+
+    const {fetchError} = useContext(AuctionContext);
 
     return (
         <form onSubmit={handleSubmit} className="formStyle">
             <h1>{rubric}</h1>
+            {fetchError && (
+                <p>
+                    {fetchError}
+                </p>
+            )}
             <div className="unit">
                 <label htmlFor="title">Title</label>
                 <input className="title-input" type="text" name="auctionTitle" id="title" value={auction.auctionTitle} onChange={handleChange} />

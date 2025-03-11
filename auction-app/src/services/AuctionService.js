@@ -78,14 +78,16 @@ const UpdateAuction = async (auctionobject) => {
       body: auctionobject
     })
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+    // const data = await response.json();
 
+    if (!response.ok) {
+      const data = await response.json();  // Parse the response body only if it's not OK
+      throw new Error(data.message || "An unexpected error occurred.");
+    }
     // const data = await response.json();
     // console.log("Auction created successfully:", data);
   } catch (error) {
-    console.error("Error creating auction:", error);
+    throw(error);
   }
 }
 

@@ -8,8 +8,8 @@ const BidCard = ({bid}) => {
     const {deleteBid} = useContext(BidContext);
 
     return(<div className="bid-card">
-        <h2>{bid.auction.auctionTitle}</h2>
-        <h2>Your bid: {bid.bidPrice}</h2>
+        <h2>{bid?.auction?.auctionTitle}</h2>
+        <h2>${bid.bidPrice} av {bid?.user?.userName}</h2>
         <button className="bid-button" onMouseDown={() => deleteBid(bid.bidID)}>🗑️</button>
     </div>)
 }

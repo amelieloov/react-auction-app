@@ -8,18 +8,18 @@ import { GetAuctionById } from "../services/AuctionService";
 
 const UpdateAuctionContainer = () => {
 
-    const {auction, setAuction} = useContext(AuctionContext);
+    const { auction, setAuction, fetchError, setFetchError } = useContext(AuctionContext);
     const [selectedImage, setSelectedImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
 
-    const {id} = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         const getAuction = async () => {
             const auction = await GetAuctionById(id);
             setAuction(auction);
             setPreviewUrl(`https://localhost:7242${auction.image}`);
-            setSelectedImage()
+            setSelectedImage(`https://localhost:7242${auction.image}`)
         }
 
         getAuction();
@@ -36,6 +36,7 @@ const UpdateAuctionContainer = () => {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
+            setFetchError("");
 
             const formData = new FormData();
             formData.append("auctionID", id);
@@ -47,10 +48,13 @@ const UpdateAuctionContainer = () => {
                 formData.append("image", selectedImage);
             }
             console.log(formData);
+            console.log(auction);
 
             await UpdateAuction(formData);
         } catch (error) {
-            console.error("Adding auction failed:", error);
+            console.error("Updating auction failed:", error);
+            setFetchError(error.message);
+            console.log(fetchError);
         }
     }
 
@@ -60,7 +64,7 @@ const UpdateAuctionContainer = () => {
 
     return (
         <AuctionForm auction={auction} handleSubmit={handleSubmit} handleChange={handleChange}
-            handleFileChange={handleFileChange} previewUrl={previewUrl} rubric="Update auction" buttonText="Update"/>
+            handleFileChange={handleFileChange} previewUrl={previewUrl} rubric="Update auction" buttonText="Update" />
     )
 }
 

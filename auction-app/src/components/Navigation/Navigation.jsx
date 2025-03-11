@@ -10,8 +10,12 @@ import { useContext } from 'react';
 const Navigation = () => {
 
     const { handleSearch } = useContext(AuctionContext);
-    const { setIsLoginOpen, setIsRegisterOpen } = useContext(UIContext);
-    const { isLoggedIn } = useContext(AuthContext);
+    const { setIsLoginOpen, setIsRegisterOpen, setIsUpdateOpen } = useContext(UIContext);
+    const { isLoggedIn, handleLogin, handleLogout } = useContext(AuthContext);
+
+    const handleAuth = () => {
+        {isLoggedIn ? handleLogout : handleLogin, setIsLoginOpen(true)};
+    }
 
     return (
         <nav className="navbar">
@@ -25,8 +29,10 @@ const Navigation = () => {
                 <div className="right">
                     <NavLink to="/" className="navListItem">Home</NavLink>
                     {isLoggedIn && <NavLink to="/dashboard" className="navListItem">Dashboard</NavLink>}
-                    <li className="navListItem" onMouseDown={() => setIsLoginOpen(true)}>Login</li>
-                    <li className="navListItem" onMouseDown={() => setIsRegisterOpen(true)}>Register</li>
+                    <li className="navListItem" onMouseDown={handleAuth}>{isLoggedIn ? 'Logout' : 'Login'}</li>
+                    {!isLoggedIn && <li className="navListItem" onMouseDown={() => setIsRegisterOpen(true)}>Register</li>}
+                    {isLoggedIn && <li className="navListItem" onMouseDown={() => setIsUpdateOpen(true)}>Edit Profile</li>}
+                    <li></li>
                 </div>
             </ul>
         </nav>
