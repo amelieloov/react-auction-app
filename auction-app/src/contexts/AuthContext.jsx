@@ -31,7 +31,6 @@ const AuthProvider = (props) => {
                 setIsLoginOpen(false);
                 setIsLoggedIn(true);
                 var currentUser = await GetUser();
-                console.log("current user", currentUser)
                 setUser(currentUser);
                 setCreds({ username: "", password: "" });
             }

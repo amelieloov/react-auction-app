@@ -25,7 +25,6 @@ const BidProvider = (props) => {
             setAuction(auction);
             setBids((prevBids) => [...prevBids, newBid]);
         } catch (error) {
-            console.error("Adding bid failed:", error);
             toast.error(error.message);
         }
     };
@@ -33,9 +32,9 @@ const BidProvider = (props) => {
     const deleteBid = async (bidId) => {
         try {
             await DeleteBid(bidId);
-            setBids((prevBids) => prevBids.filter(bid => bid.id !== bidId));
+            //setBids((prevBids) => prevBids.filter(bid => bid.id !== bidId));
+            await getBidsByUser();
         } catch (error) {
-            console.error("Deleting bid failed:", error);
             toast.error(error.message);
         }
     }

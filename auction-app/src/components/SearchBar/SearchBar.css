@@ -1,5 +1,6 @@
 .search-bar{
     width: 33rem;
-    height: 2rem;
+    height: 3rem;
     background-color: whitesmoke;
+    margin-top: 1.5rem;
 }

@@ -18,7 +18,6 @@ const AuctionProvider = (props) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [searchError, setSearchError] = useState("");
-    // const {id} = useParams();
 
     const setSearchErrorTimer = () => {
         setSearchError(true);
@@ -30,8 +29,6 @@ const AuctionProvider = (props) => {
 
     const createAuction = async () => {
         try {
-            console.log("auction", auction);
-
             const formData = new FormData();
             formData.append("auctionTitle", auction.auctionTitle);
             formData.append("auctionDescription", auction.auctionDescription);
@@ -65,8 +62,6 @@ const AuctionProvider = (props) => {
             navigate("/dashboard");
         } catch (error) {
             toast.error(error.message);
-            console.log(error);
-            console.log("updateauction", auction);
         }
     }
 
@@ -81,17 +76,6 @@ const AuctionProvider = (props) => {
         const auctionList = await GetAuctionsByUserID();
         setAuctions(auctionList);
     };
-
-
-    // const addAuction = async (auction) => {
-    //     try {
-    //         await CreateAuction(bid);
-    //         setAuctions((prev) => [...prev, auction]);
-    //         navigate("/dashboard");
-    //     } catch (error) {
-    //         toast.error(error.message);
-    //     }
-    // };
 
     const deleteAuction = async (id) => {
         try {

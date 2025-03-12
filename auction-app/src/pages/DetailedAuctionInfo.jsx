@@ -7,11 +7,12 @@ import { AuctionContext } from "../contexts/AuctionContext";
 import { BidContext } from "../contexts/BidContext";
 import './DetailedAuctionInfo.css';
 import BidList from "../components/BidList/BidList";
+import { GetBidsByUserID } from "../services/BidService";
 
 const DetailedAuctionInfo = () => {
 
     const { id } = useParams();
-    const { auction, setAuction } = useContext(AuctionContext);
+    const { auction, setAuction, checkIfClosed } = useContext(AuctionContext);
     const { setBids } = useContext(BidContext);
 
     useEffect(() => {
@@ -30,7 +31,7 @@ const DetailedAuctionInfo = () => {
                 <AuctionCard auction={auction} viewType="detailed" />
             </div>
             <div className="bidlist">
-                <h1 className="bid-title">Bids</h1>
+                {!checkIfClosed(auction.endTime) && <h1 className="bid-title">Bids</h1>}
                 <BidList />
             </div>
         </div>

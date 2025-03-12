@@ -21,6 +21,8 @@ const AddBid = async (bidData) => {
 
 
   const DeleteBid = async (id) => {
+
+    console.log("bidid", id)
     try {
       const response = await fetch(`https://localhost:7242/api/Bid?bidId=${id}`, {
         method: "DELETE",
