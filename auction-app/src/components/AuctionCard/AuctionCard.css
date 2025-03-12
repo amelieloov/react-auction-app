@@ -34,27 +34,30 @@
   font-size: 14px;
   max-width: 200px;
   width: 17rem;
-  height: 17rem;
+  height: 13rem;
+  padding-bottom: 20px;
 }
 
 /* Styles for detailed view */
 .card-detailed {
+  width: 35rem;
   font-size: 16px;
-  width: 40%;
-  height: 60% !important;
   margin: auto;
   margin-top: 2rem;
-  transform: none;
+  padding-bottom: 20px;
 }
 
-.card-detailed:hover {
-  transform: none;
-  box-shadow: none;
+.card-detailed img{
+  height: 26rem;
 }
 
 .card-dashboard {
-  width: 17rem;
+  width: 14rem;
   height: 17rem;
+}
+
+.card-dashboard img{
+  height: 12rem;
 }
 
 /* Default card style */
@@ -71,7 +74,7 @@
 
 .text{
   display: flex;
-  flex-direction: row; /* Stack child elements vertically */
+  flex-direction: row;
   justify-content: flex-start;
   gap: 2rem;
 }

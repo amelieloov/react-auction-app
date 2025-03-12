@@ -3,16 +3,29 @@ import './AuctionForm.css';
 import { useContext } from 'react';
 import { AuctionContext } from '../../contexts/AuctionContext';
 
-const AuctionForm = ({ auction, handleSubmit, handleFileChange, previewUrl, rubric, buttonText }) => {
+const AuctionForm = ({ handleSubmit, rubric, buttonText }) => {
 
-    const {setAuction} = useContext(AuctionContext);
+    const {auction, setAuction, previewUrl, setSelectedImage, setPreviewUrl} = useContext(AuctionContext);
     
     const handleChange = (e) => {
         setAuction({ ...auction, [e.target.name]: e.target.value });
     }
 
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setSelectedImage(file);
+            setPreviewUrl(URL.createObjectURL(file));
+        }
+    }
+
+    const handleSub = (e) => { 
+        e.preventDefault();
+        handleSubmit();
+    }
+
     return (
-        <form onSubmit={handleSubmit} className="formStyle">
+        <form onSubmit={handleSub} className="formStyle">
             <h1>{rubric}</h1>
 
             <div className="unit">

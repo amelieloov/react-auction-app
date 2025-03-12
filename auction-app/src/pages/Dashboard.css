@@ -1,4 +1,15 @@
-.dashboard{
+.dashboard {
+    margin: 20px;
     display: grid;
-    grid-template-columns: 65% 35%;
+    grid-template-columns: 60% 40%;
+}
+
+.button-style {
+    margin: 40px;
+    padding: 10px;
+    background: #5c8eb8;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }

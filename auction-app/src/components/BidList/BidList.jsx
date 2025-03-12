@@ -2,6 +2,7 @@
 import BidCard from "../BidCard/BidCard";
 import { useContext } from "react";
 import { BidContext } from "../../contexts/BidContext";
+import './BidList.css';
 
 const BidList = () => {
 
@@ -13,7 +14,7 @@ const BidList = () => {
 
     return(
         <div>
-            {bids.length > 0 ? <ul>{bidList}</ul> : <p></p>}
+            {bids.length > 0 ? <ul className="bid-list-style">{bidList}</ul> : <p></p>}
         </div>
     )
 }

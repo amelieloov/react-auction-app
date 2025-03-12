@@ -5,21 +5,19 @@ import AuctionList from "../components/AuctionList/AuctionList";
 import { AuctionContext } from "../contexts/AuctionContext";
 import { BidContext } from "../contexts/BidContext";
 import BidList from "../components/BidList/BidList";
-import { GetAuctionsByUserID } from "../services/AuctionService";
-import { GetBidsByUserID } from "../services/BidService";
 
 import './Dashboard.css';
 
 const Dashboard = () => {
 
     const navigate = useNavigate();
-    const { auctions, setAuctions, getAuctionsByUser } = useContext(AuctionContext);
-    const { setBids, getBidsByUser } = useContext(BidContext);
+    const { auctions, getAuctionsByUser } = useContext(AuctionContext);
+    const { getBidsByUser } = useContext(BidContext);
 
     useEffect(() => {
         const getAuctionsAndBids = async () => {
             getAuctionsByUser();
-            GetBidsByUserID();
+            getBidsByUser();
         }
 
         getAuctionsAndBids();
@@ -30,7 +28,7 @@ const Dashboard = () => {
             <div>
                 <h1>My auctions</h1>
                 <AuctionList auctionList={auctions} handleSearch={null} viewType="dashboard" />
-                <button onClick={() => navigate("/auction/add")}>Create New Auction</button>
+                <button className="button-style" onClick={() => navigate("/auction/add")}>Create New Auction</button>
             </div>
             <div>
                 <h1>My bids</h1>

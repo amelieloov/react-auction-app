@@ -15,7 +15,6 @@ const Navigation = () => {
         <nav className="navbar">
             <ul className="nav-list">
                 <div className="left">
-                    <h1>Tredera</h1>
                 </div>
                 <div className="center">
                     <SearchBar />

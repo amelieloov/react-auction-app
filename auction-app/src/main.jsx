@@ -12,10 +12,10 @@ import { Toaster } from 'react-hot-toast';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <AuctionProvider>
-          <BidProvider>
-            <UIProvider>
+      <UIProvider>
+        <AuthProvider>
+          <AuctionProvider>
+            <BidProvider>
               <App />
               <Toaster
                 position="top-center"
@@ -39,10 +39,10 @@ createRoot(document.getElementById('root')).render(
                   },
                 }}
               />
-            </UIProvider>
-          </BidProvider>
-        </AuctionProvider>
-      </AuthProvider>
+            </BidProvider>
+          </AuctionProvider>
+        </AuthProvider>
+      </UIProvider>
     </BrowserRouter>
   </StrictMode>,
 )

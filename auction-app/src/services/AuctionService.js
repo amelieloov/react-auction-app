@@ -44,6 +44,7 @@ const GetAuctionsByUserID = async () => {
 
 const CreateAuction = async (auctionobject) => {
 
+  console.log("auctionobject", auctionobject)
   try {
     const response = await fetch("https://localhost:7242/api/Auction/create", {
       method: "POST",
@@ -64,6 +65,10 @@ const CreateAuction = async (auctionobject) => {
 };
 
 const UpdateAuction = async (auctionobject) => {
+
+  for (let [key, value] of auctionobject.entries()) {
+    console.log(key, value);
+}
 
   try {
 

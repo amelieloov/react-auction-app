@@ -79,18 +79,17 @@ const UpdateUser = async (userData) => {
 const GetUser = async () => {
   const response = await fetch("https://localhost:7242/api/User", {
     headers: {
-      "Authorization": `Bearer ${localStorage.getItem("AuthToken")}`, // Attach token here
+      "Authorization": `Bearer ${localStorage.getItem("AuthToken")}`,
     },
   });
+
+  const data = await response.json();
 
   if (!response.ok) {
     const data = await response.json();
     throw new Error(data.message || "An unexpected error occurred.");
   }
-
-  const data = await response.json();
-  console.log("user", data);
-
+  
   return data;
 }
 
