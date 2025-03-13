@@ -18,6 +18,11 @@
 }
 
 .bid-title{
-    margin-left: 13rem;
-    margin-bottom: 1rem;
+    margin-left: 7rem;
+}
+
+@media (max-width: 600px) {
+    .container{
+        flex-direction: column;
+    }
 }

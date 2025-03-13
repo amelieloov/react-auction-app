@@ -1,7 +1,7 @@
 
-import AuctionForm from "../components/AuctionForm/AuctionForm";
 import { useContext, useEffect } from "react"
-import { AuctionContext } from "../contexts/AuctionContext"
+import AuctionForm from "../../components/AuctionForm/AuctionForm";
+import { AuctionContext } from "../../contexts/AuctionContext";
 
 const AddAuction = () => {
 

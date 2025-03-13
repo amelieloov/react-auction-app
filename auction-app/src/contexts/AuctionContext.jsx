@@ -1,9 +1,8 @@
 
-import { useState, useContext, createContext } from "react";
+import { useState, createContext } from "react";
 import { CreateAuction, UpdateAuction, DeleteAuction, SearchAuctions, GetAuctionsByUserID } from "../services/AuctionService";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { UIContext } from "./UIContext";
 
 export const AuctionContext = createContext();
 
@@ -15,7 +14,6 @@ const AuctionProvider = (props) => {
         auctionID: "", auctionTitle: "", auctionDescription: "", auctionPrice: "",
         endTime: "", image: null
     })
-    const [selectedImage, setSelectedImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [searchError, setSearchError] = useState("");
 
@@ -29,18 +27,8 @@ const AuctionProvider = (props) => {
 
     const createAuction = async () => {
         try {
-            const formData = new FormData();
-            formData.append("auctionTitle", auction.auctionTitle);
-            formData.append("auctionDescription", auction.auctionDescription);
-            formData.append("auctionPrice", auction.auctionPrice);
-            formData.append("endTime", auction.endTime);
-            if (selectedImage) {
-                formData.append("image", selectedImage);
-            }
-
-            await CreateAuction(formData);
+            await CreateAuction(auction);
             navigate("/dashboard");
-
         } catch (error) {
             toast.error(error.message);
         }
@@ -48,17 +36,7 @@ const AuctionProvider = (props) => {
     
     const updateAuction = async () => {
         try {
-            const formData = new FormData();
-            formData.append("auctionID", auction.auctionID);
-            formData.append("auctionTitle", auction.auctionTitle);
-            formData.append("auctionDescription", auction.auctionDescription);
-            formData.append("auctionPrice", auction.auctionPrice);
-            formData.append("endTime", auction.endTime);
-            if (selectedImage) {
-                formData.append("image", selectedImage);
-            }
-
-            await UpdateAuction(formData);
+            await UpdateAuction(auction);
             navigate("/dashboard");
         } catch (error) {
             toast.error(error.message);
@@ -96,8 +74,7 @@ const AuctionProvider = (props) => {
 
     return (<AuctionContext.Provider value={{
         auction, setAuction, auctions, setAuctions, searchAuctions, createAuction, updateAuction,
-        deleteAuction, checkIfClosed, getAuctionsByUser, searchError, setSearchErrorTimer, previewUrl, setPreviewUrl, selectedImage,
-        setSelectedImage
+        deleteAuction, checkIfClosed, getAuctionsByUser, searchError, setSearchErrorTimer, previewUrl, setPreviewUrl
     }}>
         {props.children}
     </AuctionContext.Provider>)

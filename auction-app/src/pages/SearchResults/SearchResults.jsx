@@ -1,7 +1,7 @@
 
-import { AuctionContext } from "../contexts/AuctionContext";
+import { AuctionContext } from "../../contexts/AuctionContext";
 import { useContext } from "react";
-import AuctionList from "../components/AuctionList/AuctionList";
+import AuctionList from "../../components/AuctionList/AuctionList";
 
 const SearchResults = () => {
 

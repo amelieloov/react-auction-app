@@ -21,10 +21,10 @@ const Navigation = () => {
                 </div>
                 <div className="right">
                     <NavLink to="/" className="navListItem">Home</NavLink>
-                    {isLoggedIn && <NavLink to="/dashboard" className="navListItem">Dashboard</NavLink>}
-                    <li className="navListItem" onMouseDown={isLoggedIn ? handleLogout : () => setIsLoginOpen(true)}>{isLoggedIn ? 'Logout' : 'Login'}</li>
+                    {isLoggedIn && <NavLink to="/dashboard" className="navListItem">Bid & Sell</NavLink>}
                     {!isLoggedIn && <li className="navListItem" onMouseDown={() => setIsRegisterOpen(true)}>Register</li>}
                     {isLoggedIn && <li className="navListItem" onMouseDown={() => setIsUpdateOpen(true)}>Edit Profile</li>}
+                    <li className="navListItem" onMouseDown={isLoggedIn ? handleLogout : () => setIsLoginOpen(true)}>{isLoggedIn ? 'Logout' : 'Login'}</li>
                     <li></li>
                 </div>
             </ul>

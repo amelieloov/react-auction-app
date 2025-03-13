@@ -1,9 +1,9 @@
 
-import AuctionForm from "../components/AuctionForm/AuctionForm";
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { AuctionContext } from "../contexts/AuctionContext";
-import { GetAuctionById } from "../services/AuctionService";
+import AuctionForm from "../../components/AuctionForm/AuctionForm";
+import { AuctionContext } from "../../contexts/AuctionContext";
+import { GetAuctionById } from "../../services/AuctionService";
 
 const UpdateAuction = () => {
 

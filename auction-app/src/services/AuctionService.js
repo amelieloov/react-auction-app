@@ -42,16 +42,23 @@ const GetAuctionsByUserID = async () => {
   return data;
 }
 
-const CreateAuction = async (auctionobject) => {
+const CreateAuction = async (auction) => {
 
-  console.log("auctionobject", auctionobject)
+  const formData = new FormData();
+  formData.append("auctionTitle", auction.auctionTitle);
+  formData.append("auctionDescription", auction.auctionDescription);
+  formData.append("auctionPrice", auction.auctionPrice);
+  formData.append("endTime", auction.endTime);
+  formData.append("image", auction.image);
+
+  console.log("auctionobject", formData)
   try {
     const response = await fetch("https://localhost:7242/api/Auction/create", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("AuthToken")}`,
       },
-      body: auctionobject
+      body: formData
     });
 
     if (!response.ok) {
@@ -64,11 +71,15 @@ const CreateAuction = async (auctionobject) => {
   }
 };
 
-const UpdateAuction = async (auctionobject) => {
+const UpdateAuction = async (auction) => {
 
-  for (let [key, value] of auctionobject.entries()) {
-    console.log(key, value);
-}
+  const formData = new FormData();
+  formData.append("auctionID", auction.auctionID);
+  formData.append("auctionTitle", auction.auctionTitle);
+  formData.append("auctionDescription", auction.auctionDescription);
+  formData.append("auctionPrice", auction.auctionPrice);
+  formData.append("endTime", auction.endTime);
+  formData.append("image", auction.image);
 
   try {
 
@@ -77,7 +88,7 @@ const UpdateAuction = async (auctionobject) => {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("AuthToken")}`,
       },
-      body: auctionobject
+      body: formData
     })
 
     if (!response.ok) {

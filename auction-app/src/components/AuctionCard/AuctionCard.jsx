@@ -36,25 +36,19 @@ const AuctionCard = ({ auction, viewType }) => {
             <div onMouseDown={() => navigate(`/item/${auction.auctionID}`)}>
                 <img src={`https://localhost:7242${auction.image}`} alt="No picture" />
 
-                <div className='text'>
-                    <div>
-                        <h2>{auction.auctionTitle}</h2>
-                        <p>{!isClosed ? "Current price: " : "Winning bid: "} ${auction.auctionPrice}</p>
-                        {viewType === "detailed" && <div>
-                            <p>Created {formatDate(auction.startTime)} {auction?.user?.userName && "by"} {auction?.user?.userName}</p>
-                            <p>{!isClosed ? "Ends" : "Ended"} {formatDate(auction.endTime)}</p>
-                            {isClosed && <h2>The auction has ended.</h2>}
-                            {!isClosed && !isCurrentUser && <div className='add-bid'>
-                                <input type="number" value={inputValue} onChange={handleChange} />
-                                <button onClick={handleAddBid}>Add bid</button></div>}
-                        </div>}
-                    </div>
+                <h3>{auction.auctionTitle}</h3>
+                <p>{!isClosed ? "Current price: " : "Final price: "} ${auction.auctionPrice}</p>
 
-                    {viewType === "detailed" && <div>
-                        <h2>Description:</h2>
-                        <p> {auction.auctionDescription}</p>
-                    </div>}
-                </div>
+                {viewType === "detailed" && <div>
+                    <p>Created {formatDate(auction.startTime)} {auction?.user?.userName && "by"} {auction?.user?.userName}</p>
+                    <p>{!isClosed ? "Ends" : "Ended"} {formatDate(auction.endTime)}</p>
+                    {isClosed && <h2>The auction has ended.</h2>}
+                    {!isClosed && !isCurrentUser && <div className='add-bid'>
+                        <input type="number" value={inputValue} onChange={handleChange} />
+                        <button onClick={handleAddBid}>Add bid</button></div>}
+                    <h3>Description:</h3>
+                    <p> {auction.auctionDescription}</p>
+                </div>}
             </div>
 
             {viewType === "card-dashboard" && <div className="auction-button">

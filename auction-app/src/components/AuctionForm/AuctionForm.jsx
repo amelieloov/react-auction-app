@@ -11,13 +11,14 @@ const AuctionForm = ({ handleSubmit, rubric, buttonText }) => {
         setAuction({ ...auction, [e.target.name]: e.target.value });
     }
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            setSelectedImage(file);
-            setPreviewUrl(URL.createObjectURL(file));
-        }
-    }
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setAuction((prev) => ({
+            ...prev,
+            image: file,
+        }));
+        setPreviewUrl(URL.createObjectURL(file));
+    };
 
     const handleSub = (e) => { 
         e.preventDefault();
@@ -47,7 +48,6 @@ const AuctionForm = ({ handleSubmit, rubric, buttonText }) => {
             <div className="unit">
                 <label htmlFor="image">Image</label>
                 <input type="file" accept="image/*" onChange={handleFileChange} name="image" id="image" />
-                {previewUrl && <img src={previewUrl} alt="Preview" width="100" />}
             </div>
             <button className="button" type="submit">{buttonText}</button>
         </form>

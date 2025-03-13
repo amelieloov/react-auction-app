@@ -1,10 +1,10 @@
 
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import AuctionList from "../components/AuctionList/AuctionList";
-import { AuctionContext } from "../contexts/AuctionContext";
-import { BidContext } from "../contexts/BidContext";
-import BidList from "../components/BidList/BidList";
+import AuctionList from "../../components/AuctionList/AuctionList";
+import { AuctionContext } from "../../contexts/AuctionContext";
+import { BidContext } from "../../contexts/BidContext";
+import BidList from "../../components/BidList/BidList";
 
 import './Dashboard.css';
 
@@ -26,9 +26,11 @@ const Dashboard = () => {
     return (
         <div className="dashboard">
             <div>
-                <h1>My auctions</h1>
+                <div className="top-part">
+                    <h1>My auctions</h1>
+                    <button className="button-style" onClick={() => navigate("/auction/add")}>Create New Auction</button>
+                </div>
                 <AuctionList auctionList={auctions} handleSearch={null} viewType="dashboard" />
-                <button className="button-style" onClick={() => navigate("/auction/add")}>Create New Auction</button>
             </div>
             <div>
                 <h1>My bids</h1>

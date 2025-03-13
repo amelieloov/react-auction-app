@@ -23,7 +23,7 @@ const BidProvider = (props) => {
             await AddBid(newBid);
             const auction = await GetAuctionById(newBid.auctionID);
             setAuction(auction);
-            setBids((prevBids) => [...prevBids, newBid]);
+            setBids(auction.bids);
         } catch (error) {
             toast.error(error.message);
         }
@@ -32,7 +32,6 @@ const BidProvider = (props) => {
     const deleteBid = async (bidId) => {
         try {
             await DeleteBid(bidId);
-            //setBids((prevBids) => prevBids.filter(bid => bid.id !== bidId));
             await getBidsByUser();
         } catch (error) {
             toast.error(error.message);
