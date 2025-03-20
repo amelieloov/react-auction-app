@@ -5,6 +5,7 @@ import { useContext, useState } from 'react';
 import { BidContext } from '../../contexts/BidContext.jsx';
 import { AuctionContext } from '../../contexts/AuctionContext.jsx';
 import { AuthContext } from '../../contexts/AuthContext.jsx';
+import Button from '../Button/Button.jsx';
 
 const AuctionCard = ({ auction, viewType }) => {
 
@@ -12,17 +13,17 @@ const AuctionCard = ({ auction, viewType }) => {
     const { addBid } = useContext(BidContext);
     const { deleteAuction, checkIfClosed } = useContext(AuctionContext);
     const { user } = useContext(AuthContext);
-    const [inputValue, setInputValue] = useState("");
+    const [bidValue, setBidValue] = useState("");
     const isCurrentUser = auction?.user?.userID === user?.userID;
     const isClosed = checkIfClosed(auction.endTime);
 
     const handleChange = (e) => {
-        setInputValue(e.target.value);
+        setBidValue(e.target.value);
     }
 
     const handleAddBid = () => {
-        addBid({ bidPrice: inputValue, auctionID: auction.auctionID });
-        setInputValue("");
+        addBid({ bidPrice: bidValue, auctionID: auction.auctionID });
+        setBidValue("");
     }
 
     const cardClass =
@@ -44,8 +45,8 @@ const AuctionCard = ({ auction, viewType }) => {
                     <p>{!isClosed ? "Ends" : "Ended"} {formatDate(auction.endTime)}</p>
                     {isClosed && <h2>The auction has ended.</h2>}
                     {!isClosed && !isCurrentUser && <div className='add-bid'>
-                        <input type="number" value={inputValue} onChange={handleChange} />
-                        <button onClick={handleAddBid}>Add bid</button></div>}
+                        <input type="number" value={bidValue} onChange={handleChange} />
+                        <Button type="button" onClick={handleAddBid} text="Add bid"/></div>}
                     <h3>Description:</h3>
                     <p> {auction.auctionDescription}</p>
                 </div>}

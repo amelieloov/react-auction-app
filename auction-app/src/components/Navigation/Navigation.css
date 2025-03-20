@@ -10,16 +10,17 @@ body {
 
 .navbar {
     width: 100%;
-    height: 4rem;
+    height: 9rem;
     border-bottom: solid 2px gray;
 }
 
 .nav-list {
     display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 0.6rem;
-    list-style-type: none;
     height: 50px;
+    list-style-type: none;
 }
 
 .left {
@@ -36,48 +37,57 @@ body {
     flex: 1;
     display: flex;
     justify-content: flex-end;
-    gap: 15px;
 }
 
-.navListItem {
-    font-size: 1.2rem;
+.left, .center, .right {
+    justify-content: flex-start;
+    width: 100%;
+    justify-content: center;
+}
+
+.nav-list-item {
+    font-size: 0.8rem;
     margin: 1rem;
     text-decoration: none;
     color: #3b3b3b;
     cursor: pointer;
 }
 
-.navListItem:hover {
+.nav-list-item:hover {
     color: gray;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 1024px) {
     .nav-list {
-        flex-direction: column; /* Stack items vertically */
-        align-items: flex-start; /* Align to the start (optional) */
-        gap: 10px; /* Optional gap between sections */
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
         width: 100%; 
     }
 
-    .left, .center, .right {
-        justify-content: flex-start; /* Align content to the left */
-        width: 100%; /* Make each section take full width */
+    .left {
+        flex: 1;
     }
-
+    
     .center {
-        justify-content: center; /* Center the center section */
+        flex: 1;
+        display: flex;
+        justify-content: center;
     }
-
+    
     .right {
-        justify-content: center; /* Align right section to the end */
-
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        gap: 1.2rem;
     }
+
     .navbar {
-        height: 9rem;
+        height: 4rem;
     }
 
-    .navListItem {
+    .nav-list-item {
         margin: 0;
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 }

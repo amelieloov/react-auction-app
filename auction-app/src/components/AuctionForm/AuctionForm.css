@@ -1,8 +1,10 @@
 
-.formStyle{
-    padding-left: 2%;
+.center{
+    place-items: center;
+}
+
+.form-style{
     display: grid;
-    grid-template-rows: 5;
     gap: 0.5rem;
 }
 
@@ -27,10 +29,4 @@
 
 .date-input{
     width: 10rem;
-}
-
-.button{
-    width: 5rem;
-    height: 3rem;
-    border-radius: 4px;
 }

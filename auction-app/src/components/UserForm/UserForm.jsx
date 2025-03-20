@@ -2,6 +2,7 @@
 import './UserForm.css';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useContext } from 'react';
+import Button from '../Button/Button';
 
 const UserForm = ({ handleSubmit, text, isOpen, setIsOpen }) => {
 
@@ -28,7 +29,7 @@ const UserForm = ({ handleSubmit, text, isOpen, setIsOpen }) => {
                     <label htmlFor="password">Password</label>
                     <input type="password" name="password" value={creds.password} onChange={handleChange} />
                     {authError && (<p>{authError}</p>)}
-                    <button className="user-button" type="submit" >{text}</button>
+                    <Button type="submit" text={text}/>
                 </form>
             </div>
         </>
