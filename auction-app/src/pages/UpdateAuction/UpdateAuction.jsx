@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AuctionForm from "../../components/AuctionForm/AuctionForm";
 import { AuctionContext } from "../../contexts/AuctionContext";
-import { GetAuctionById } from "../../services/AuctionService";
+import { getAuctionById } from "../../services/AuctionService";
 
 const UpdateAuction = () => {
 
@@ -12,10 +12,9 @@ const UpdateAuction = () => {
     
     useEffect(() => {
         const getAuction = async () => {
-            const auction = await GetAuctionById(id);
+            const auction = await getAuctionById(id);
             setAuction(auction);
             setPreviewUrl(`https://localhost:7242${auction.image}`);
-            setSelectedImage(`https://localhost:7242${auction.image}`)
         }  
 
         getAuction();

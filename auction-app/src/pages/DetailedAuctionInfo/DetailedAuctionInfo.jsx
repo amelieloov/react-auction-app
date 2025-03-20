@@ -1,13 +1,13 @@
 
 import { useParams } from "react-router-dom";
 import AuctionCard from "../../components/AuctionCard/AuctionCard"
-import { GetAuctionById } from "../../services/AuctionService";
+import { getAuctionById } from "../../services/AuctionService";
 import { useEffect, useContext } from "react";
 import { AuctionContext } from "../../contexts/AuctionContext";
 import { BidContext } from "../../contexts/BidContext";
 import './DetailedAuctionInfo.css';
 import BidList from "../../components/BidList/BidList";
-import { GetBidsByUserID } from "../../services/BidService";
+import { getBidsByUserID } from "../../services/BidService";
 
 const DetailedAuctionInfo = () => {
 
@@ -17,7 +17,7 @@ const DetailedAuctionInfo = () => {
 
     useEffect(() => {
         const getAuctions = async () => {
-            const auction = await GetAuctionById(id);
+            const auction = await getAuctionById(id);
             setAuction(auction);
             setBids(auction.bids);
         }

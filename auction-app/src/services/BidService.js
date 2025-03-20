@@ -1,4 +1,4 @@
-const AddBid = async (bidData) => {
+export const addBid = async (bidData) => {
     try {
       const response = await fetch("https://localhost:7242/api/Bid", {
         method: "POST",
@@ -20,7 +20,7 @@ const AddBid = async (bidData) => {
   };
 
 
-  const DeleteBid = async (id) => {
+  export const deleteBid = async (id) => {
 
     console.log("bidid", id)
     try {
@@ -41,7 +41,7 @@ const AddBid = async (bidData) => {
     }
   };
 
-  const GetBidsByUserID = async () => {
+  export const getBidsByUserID = async () => {
 
     const data = await fetch(`https://localhost:7242/api/Bid`, {
       headers: {
@@ -53,5 +53,3 @@ const AddBid = async (bidData) => {
 
     return data;
 }
-
-export {AddBid, DeleteBid, GetBidsByUserID};

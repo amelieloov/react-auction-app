@@ -24,4 +24,8 @@
     .dashboard{
         display: block;
     }
+
+    .rubric{
+        font-size: 1.5rem;
+    }
 }

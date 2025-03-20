@@ -1,8 +1,7 @@
 
 import { useState, useContext, createContext } from "react";
-import { AddBid } from "../services/BidService";
-import { DeleteBid, GetBidsByUserID } from "../services/BidService";
-import { GetAuctionById } from "../services/AuctionService";
+import { addBid, deleteBid, getBidsByUserID } from "../services/BidService";
+import { getAuctionById } from "../services/AuctionService";
 import { AuctionContext } from "./AuctionContext";
 import { toast } from 'react-hot-toast';
 
@@ -13,15 +12,15 @@ const BidProvider = (props) => {
     const [bids, setBids] = useState([]);
     const {setAuction} = useContext(AuctionContext);
 
-    const getBidsByUser = async () => {     
-        const bidList = await GetBidsByUserID();
+    const handleGetBidsByUser = async () => {     
+        const bidList = await getBidsByUserID();
         setBids(bidList);
     }
 
-    const addBid = async (newBid) => {
+    const handleAddBid = async (newBid) => {
         try {
-            await AddBid(newBid);
-            const auction = await GetAuctionById(newBid.auctionID);
+            await addBid(newBid);
+            const auction = await getAuctionById(newBid.auctionID);
             setAuction(auction);
             setBids(auction.bids);
         } catch (error) {
@@ -29,16 +28,16 @@ const BidProvider = (props) => {
         }
     };
 
-    const deleteBid = async (bidId) => {
+    const handleDeleteBid = async (bidId) => {
         try {
-            await DeleteBid(bidId);
-            await getBidsByUser();
+            await deleteBid(bidId);
+            await handleGetBidsByUser();
         } catch (error) {
             toast.error(error.message);
         }
     }
 
-    return (<BidContext.Provider value={{ bids, setBids, addBid, deleteBid, getBidsByUser}}>
+    return (<BidContext.Provider value={{ bids, setBids, addBid: handleAddBid, deleteBid: handleDeleteBid, getBidsByUser: handleGetBidsByUser}}>
         {props.children}
     </BidContext.Provider>)
 }

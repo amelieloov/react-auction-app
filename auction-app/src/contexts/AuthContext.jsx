@@ -2,10 +2,10 @@ import { useState, useEffect, useContext, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UIContext } from "./UIContext";
 import { toast } from "react-hot-toast";
-import { Login } from "../services/UserService";
-import { CreateUser } from "../services/UserService";
-import { UpdateUser } from "../services/UserService";
-import { GetUser } from "../services/UserService";
+import { loginUser } from "../services/UserService";
+import { createUser } from "../services/UserService";
+import { updateUser } from "../services/UserService";
+import { getUser } from "../services/UserService";
 
 export const AuthContext = createContext();
 
@@ -23,14 +23,13 @@ const AuthProvider = (props) => {
       localStorage.setItem('isLoggedIn', isLoggedIn);
     }, [isLoggedIn]);
 
-    const handleLogin = async (e) => {
+    const handleLogin = async () => {
         try{
-            e.preventDefault();
-            const result = await Login(creds);
+            const result = await loginUser(creds);
             if(result){
                 setIsLoginOpen(false);
                 setIsLoggedIn(true);
-                var currentUser = await GetUser();
+                var currentUser = await getUser();
                 setUser(currentUser);
                 setCreds({ username: "", password: "" });
             }
@@ -46,21 +45,20 @@ const AuthProvider = (props) => {
         navigate("/");
     };
 
-    const handleAddUser = async (e) => {
+    const handleAddUser = async () => {
         try{
-            e.preventDefault();
-            await CreateUser(creds);
+            await createUser(creds);
             setIsRegisterOpen(false);
             setCreds({ username: "", password: "" });
+            toast.success("User successfully registrated.")
         } catch (error){
             toast.error(error.message);
         }
     }
 
-    const handleUpdateUser = async (e) => {
+    const handleUpdateUser = async () => {
         try {
-            e.preventDefault();
-            await UpdateUser(creds);
+            await updateUser(creds);
             setIsUpdateOpen(false);
             setCreds({ username: "", password: "" });
             toast.success("User successfully updated.")

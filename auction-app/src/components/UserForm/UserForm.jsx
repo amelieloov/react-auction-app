@@ -11,11 +11,16 @@ const UserForm = ({ handleSubmit, text, isOpen, setIsOpen }) => {
         setCreds({ ...creds, [e.target.name]: e.target.value });
     }
 
+    const handleUserSubmit = (e) => {
+        e.preventDefault();
+        handleSubmit();
+    }
+
     return (
         <>
             <div className={`overlay ${isOpen ? "active" : ""}`} onClick={() => { setIsOpen(false) }} id="overlay"></div>
             <div className={`side-panel ${isOpen ? "active" : ""}`} onClick={() => setIsOpen(true)} >
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleUserSubmit}>
                     <h2>{text}</h2>
                     <label htmlFor="username">Username</label>
                     <button className='user-button close-button' onMouseDown={() => setIsOpen(false)}>X</button>

@@ -2,7 +2,7 @@
 import './App.css'
 import Navigation from './components/Navigation/Navigation';
 import Main from './components/Main/Main';
-import { GetUser } from './services/UserService';
+import { getUser } from './services/UserService';
 import { useEffect, useContext } from 'react';
 import { AuthContext } from './contexts/AuthContext';
 import UserForm from './components/UserForm/UserForm';
@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     const GetUserInfo = async () => {
-      var user = await GetUser();
+      var user = await getUser();
       setUser(user);
     }
 

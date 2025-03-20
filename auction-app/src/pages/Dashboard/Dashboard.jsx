@@ -27,13 +27,13 @@ const Dashboard = () => {
         <div className="dashboard">
             <div>
                 <div className="top-part">
-                    <h1>My auctions</h1>
+                    <h1 className="rubric">My auctions</h1>
                     <button className="button-style" onClick={() => navigate("/auction/add")}>Create New Auction</button>
                 </div>
                 <AuctionList auctionList={auctions} handleSearch={null} viewType="dashboard" />
             </div>
             <div>
-                <h1>My bids</h1>
+                <h1 className="rubric">My bids</h1>
                 <BidList />
             </div>
         </div>

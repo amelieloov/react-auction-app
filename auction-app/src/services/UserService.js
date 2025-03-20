@@ -1,5 +1,7 @@
 
-const CreateUser = async (userData) => {
+export const createUser = async (userData) => {
+  console.log("userData", userData);
+
     try {
       const response = await fetch("https://localhost:7242/api/User/add", {
         method: "POST",
@@ -9,8 +11,9 @@ const CreateUser = async (userData) => {
         body: JSON.stringify(userData),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const data = await response.json();
         throw new Error(data.message || "An unexpected error occurred.");
       }
 
@@ -21,7 +24,7 @@ const CreateUser = async (userData) => {
   };
 
 
-const Login = async (loginData) => {
+export const loginUser = async (loginData) => {
   try {
     const response = await fetch("https://localhost:7242/api/User/login", {
       method: "POST",
@@ -48,7 +51,7 @@ const Login = async (loginData) => {
   }
 }
 
-const UpdateUser = async (userData) => {
+export const updateUser = async (userData) => {
 
   console.log("userdata", userData);
 
@@ -76,7 +79,7 @@ const UpdateUser = async (userData) => {
   }
 }
 
-const GetUser = async () => {
+export const getUser = async () => {
   const response = await fetch("https://localhost:7242/api/User", {
     headers: {
       "Authorization": `Bearer ${localStorage.getItem("AuthToken")}`,
@@ -92,5 +95,3 @@ const GetUser = async () => {
   
   return data;
 }
-
-export {CreateUser, Login, UpdateUser, GetUser};

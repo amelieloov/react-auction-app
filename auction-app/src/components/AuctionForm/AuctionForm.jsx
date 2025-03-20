@@ -5,7 +5,7 @@ import { AuctionContext } from '../../contexts/AuctionContext';
 
 const AuctionForm = ({ handleSubmit, rubric, buttonText }) => {
 
-    const {auction, setAuction, previewUrl, setSelectedImage, setPreviewUrl} = useContext(AuctionContext);
+    const {auction, setAuction, setPreviewUrl} = useContext(AuctionContext);
     
     const handleChange = (e) => {
         setAuction({ ...auction, [e.target.name]: e.target.value });
@@ -20,13 +20,13 @@ const AuctionForm = ({ handleSubmit, rubric, buttonText }) => {
         setPreviewUrl(URL.createObjectURL(file));
     };
 
-    const handleSub = (e) => { 
+    const handleAuctionSubmit = (e) => { 
         e.preventDefault();
         handleSubmit();
     }
 
     return (
-        <form onSubmit={handleSub} className="formStyle">
+        <form onSubmit={handleAuctionSubmit} className="formStyle">
             <h1>{rubric}</h1>
 
             <div className="unit">

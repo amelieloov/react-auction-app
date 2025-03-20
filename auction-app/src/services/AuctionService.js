@@ -1,5 +1,5 @@
 
-const GetAuctionById = async (id) => {
+export const getAuctionById = async (id) => {
 
   const url = `https://localhost:7242/api/Auction/${id}`;
 
@@ -10,7 +10,7 @@ const GetAuctionById = async (id) => {
   return data;
 }
 
-const SearchAuctions = async (condition) => {
+export const searchAuctionsByName = async (condition) => {
 
   try {
     const response = await fetch(`https://localhost:7242/api/Auction/search?condition=${condition}`);
@@ -31,7 +31,7 @@ const SearchAuctions = async (condition) => {
 }
 
 
-const GetAuctionsByUserID = async () => {
+export const getAuctionsByUserID = async () => {
 
   const data = await fetch(`https://localhost:7242/api/Auction/userId`, {
     headers: {
@@ -42,7 +42,7 @@ const GetAuctionsByUserID = async () => {
   return data;
 }
 
-const CreateAuction = async (auction) => {
+export const createAuction = async (auction) => {
 
   const formData = new FormData();
   formData.append("auctionTitle", auction.auctionTitle);
@@ -71,7 +71,7 @@ const CreateAuction = async (auction) => {
   }
 };
 
-const UpdateAuction = async (auction) => {
+export const updateAuction = async (auction) => {
 
   const formData = new FormData();
   formData.append("auctionID", auction.auctionID);
@@ -101,7 +101,7 @@ const UpdateAuction = async (auction) => {
   }
 }
 
-const DeleteAuction = async (id) => {
+export const deleteAuction = async (id) => {
   try{
     const response = await fetch(`https://localhost:7242/api/Auction?auctionid=${id}`, {
       method: 'DELETE',
@@ -118,5 +118,3 @@ const DeleteAuction = async (id) => {
     throw(error)
   }
 }
-
-export { GetAuctionById, SearchAuctions, GetAuctionsByUserID, CreateAuction, UpdateAuction, DeleteAuction };

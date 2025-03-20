@@ -1,7 +1,7 @@
 
 import { useState, createContext } from "react";
-import { CreateAuction, UpdateAuction, DeleteAuction, SearchAuctions, GetAuctionsByUserID } from "../services/AuctionService";
 import { useNavigate } from "react-router-dom";
+import { createAuction, updateAuction, deleteAuction, searchAuctionsByName, getAuctionsByUserID } from "../services/AuctionService";
 import { toast } from "react-hot-toast";
 
 export const AuctionContext = createContext();
@@ -10,8 +10,7 @@ const AuctionProvider = (props) => {
 
     const navigate = useNavigate();
     const [auctions, setAuctions] = useState([]);
-    const [auction, setAuction] = useState({
-        auctionID: "", auctionTitle: "", auctionDescription: "", auctionPrice: "",
+    const [auction, setAuction] = useState({auctionID: "", auctionTitle: "", auctionDescription: "", auctionPrice: "", 
         endTime: "", image: null
     })
     const [previewUrl, setPreviewUrl] = useState(null);
@@ -25,39 +24,39 @@ const AuctionProvider = (props) => {
         }, 3000);
     };
 
-    const createAuction = async () => {
+    const handleAddAuction = async () => {
         try {
-            await CreateAuction(auction);
+            await createAuction(auction);
             navigate("/dashboard");
         } catch (error) {
             toast.error(error.message);
         }
     }
     
-    const updateAuction = async () => {
+    const handleUpdateAuction = async () => {
         try {
-            await UpdateAuction(auction);
+            await updateAuction(auction);
             navigate("/dashboard");
         } catch (error) {
             toast.error(error.message);
         }
     }
 
-    const searchAuctions = async (condition) => {
-        const data = await SearchAuctions(condition);
+    const handleSearchAuctions = async (condition) => {
+        const data = await searchAuctionsByName(condition);
         setAuctions(data);
         data.length === 0 && setSearchErrorTimer();
         navigate(`/searchresults`)
     }
 
-    const getAuctionsByUser = async () => {
-        const auctionList = await GetAuctionsByUserID();
+    const handleGetAuctionsByUser = async () => {
+        const auctionList = await getAuctionsByUserID();
         setAuctions(auctionList);
     };
 
-    const deleteAuction = async (id) => {
+    const handleDeleteAuction = async (id) => {
         try {
-            await DeleteAuction(id);
+            await deleteAuction(id);
             setAuctions((prev) => prev.filter(auction => auction.auctionID !== id));
         }
         catch (error) {
@@ -73,8 +72,8 @@ const AuctionProvider = (props) => {
     }
 
     return (<AuctionContext.Provider value={{
-        auction, setAuction, auctions, setAuctions, searchAuctions, createAuction, updateAuction,
-        deleteAuction, checkIfClosed, getAuctionsByUser, searchError, setSearchErrorTimer, previewUrl, setPreviewUrl
+        auction, setAuction, auctions, setAuctions, searchAuctions: handleSearchAuctions, createAuction: handleAddAuction, updateAuction: handleUpdateAuction,
+        deleteAuction: handleDeleteAuction, checkIfClosed, getAuctionsByUser: handleGetAuctionsByUser, searchError, setSearchErrorTimer, previewUrl, setPreviewUrl
     }}>
         {props.children}
     </AuctionContext.Provider>)
