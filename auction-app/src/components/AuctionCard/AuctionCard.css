@@ -35,20 +35,19 @@
 }
 
 .card-search {
-  font-size: 14px;
-  max-width: 200px;
-  width: 10.5rem;
+  font-size: 0.9rem;
+  width: 10.7rem;
   height: 15rem;
-  padding-bottom: 20px;
+  padding-bottom: 1rem;
   margin-left: 5px;
 }
 
 .card-detailed {
   width: 22rem;
-  font-size: 16px;
+  font-size: 1rem;
   margin: auto;
   margin-top: 1rem;
-  padding-bottom: 20px;
+  padding-bottom: 1rem;
 }
 
 .card-detailed img {
@@ -57,7 +56,6 @@
 
 .card-dashboard {
   width: 16rem;
-  height: 17rem;
 }
 
 .card-dashboard img {

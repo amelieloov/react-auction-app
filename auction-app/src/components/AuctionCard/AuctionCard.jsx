@@ -35,7 +35,7 @@ const AuctionCard = ({ auction, viewType }) => {
     return (
         <div className={`auction-card ${cardClass}`}>
             <div onMouseDown={() => navigate(`/item/${auction.auctionID}`)}>
-                <img src={`https://localhost:7242${auction.image}`} alt="No picture" />
+                <img src={`https://localhost:7242/uploads/${auction.image}`} alt="No picture" />
 
                 <h3>{auction.auctionTitle}</h3>
                 <p>{!isClosed ? "Current price: " : "Final price: "} ${auction.auctionPrice}</p>
