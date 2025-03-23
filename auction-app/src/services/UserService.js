@@ -1,6 +1,5 @@
 
 export const createUser = async (userData) => {
-  console.log("userData", userData);
 
     try {
       const response = await fetch("https://localhost:7242/api/User/add", {
@@ -17,7 +16,6 @@ export const createUser = async (userData) => {
         throw new Error(data.message || "An unexpected error occurred.");
       }
 
-      console.log("User created successfully:", data);
     } catch (error) {
       throw(error);
     }
@@ -34,26 +32,23 @@ export const loginUser = async (loginData) => {
       body: JSON.stringify(loginData),
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-      const data = await response.json();
       throw new Error(data.message || "An unexpected error occurred.");
     }
 
-    const data = await response.json();
     const token = data.token;
     localStorage.setItem("AuthToken", token);
 
-    if(token){
-      return true;
-    }
+    return !!token;
+
   } catch (error) {
     throw(error);
   }
 }
 
 export const updateUser = async (userData) => {
-
-  console.log("userdata", userData);
 
   try {
     const response = await fetch("https://localhost:7242/api/User", {
@@ -67,12 +62,10 @@ export const updateUser = async (userData) => {
 
     if (!response.ok) {
       const data = await response.json();
-      console.log("json data", data);
       throw new Error(data.message || "An unexpected error occurred.");
     }
 
     const data = await response.json();
-    console.log("json data", data);
 
   } catch (error) {
     throw(error);

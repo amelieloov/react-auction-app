@@ -49,7 +49,5 @@ export const addBid = async (bidData) => {
       },
     }).then(response => response.json());
 
-    console.log("bidsbyuserid", data);
-
     return data;
 }

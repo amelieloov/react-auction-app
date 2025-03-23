@@ -36,27 +36,27 @@ const AuctionCard = ({ auction, viewType }) => {
         <div className={`auction-card ${cardClass}`}>
             <div onMouseDown={() => navigate(`/item/${auction.auctionID}`)}>
                 <img src={`https://localhost:7242/uploads/${auction.image}`} alt="No picture" />
+                <div className='auction-content'>
+                    <h3>{auction.auctionTitle}</h3>
+                    <p>{!isClosed ? "Current price: " : "Final price: "} ${auction.auctionPrice}</p>
 
-                <h3>{auction.auctionTitle}</h3>
-                <p>{!isClosed ? "Current price: " : "Final price: "} ${auction.auctionPrice}</p>
+                    {viewType === "detailed" && <div>
+                        <p>Created {formatDate(auction.startTime)} {auction?.user?.userName && "by"} {auction?.user?.userName}</p>
+                        <p>{!isClosed ? "Ends" : "Ended"} {formatDate(auction.endTime)}</p>
+                        {isClosed && <h2>The auction has ended.</h2>}
+                        {!isClosed && !isCurrentUser && <div className='add-bid'>
+                            <input type="number" value={bidValue} onChange={handleChange} />
+                            <Button type="button" onClick={handleAddBid} text="Add bid" /></div>}
+                        <h3>Description:</h3>
+                        <p> {auction.auctionDescription}</p>
+                    </div>}
+                </div>
 
-                {viewType === "detailed" && <div>
-                    <p>Created {formatDate(auction.startTime)} {auction?.user?.userName && "by"} {auction?.user?.userName}</p>
-                    <p>{!isClosed ? "Ends" : "Ended"} {formatDate(auction.endTime)}</p>
-                    {isClosed && <h2>The auction has ended.</h2>}
-                    {!isClosed && !isCurrentUser && <div className='add-bid'>
-                        <input type="number" value={bidValue} onChange={handleChange} />
-                        <Button type="button" onClick={handleAddBid} text="Add bid"/></div>}
-                    <h3>Description:</h3>
-                    <p> {auction.auctionDescription}</p>
+                {viewType === "card-dashboard" && <div className="auction-buttons">
+                    <button onMouseDown={() => navigate(`/auction/update/${auction.auctionID}`)}>✏️</button>
+                    <button onMouseDown={() => deleteAuction(auction.auctionID)}>🗑️</button>
                 </div>}
             </div>
-
-            {viewType === "card-dashboard" && <div className="auction-button">
-                <button onMouseDown={() => navigate(`/auction/update/${auction.auctionID}`)}>✏️</button>
-                <button onMouseDown={() => deleteAuction(auction.auctionID)}>🗑️</button>
-            </div>}
-
         </div>
     )
 }

@@ -5,8 +5,6 @@ export const getAuctionById = async (id) => {
 
   const data = await fetch(url).then(response => response.json());
 
-  console.log("data", data);
-
   return data;
 }
 
@@ -20,8 +18,6 @@ export const searchAuctionsByName = async (condition) => {
     }
 
     const data = await response.json();
-
-    console.log(data);
 
     return data;
 

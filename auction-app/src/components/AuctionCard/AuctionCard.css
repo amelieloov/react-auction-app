@@ -11,10 +11,10 @@
 }
 
 .auction-card img {
+  flex-shrink: 0;
   width: 100%;
   height: 10rem;
   object-fit: cover;
-  padding: none;
 }
 
 .auction-card:hover {
@@ -22,13 +22,19 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.auction-button {
+.auction-content {
+  flex-grow: 1;
+  padding: 10px;
   display: flex;
-  flex-direction: row;
-  align-self: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.auction-button button {
+.auction-buttons {
+  margin-left: 10px;
+}
+
+.auction-buttons button {
   padding: 5px;
   margin-bottom: 7px;
   margin-right: 5px;
@@ -39,7 +45,7 @@
   width: 10.7rem;
   height: 15rem;
   padding-bottom: 1rem;
-  margin-left: 5px;
+  margin-left: 10px;
 }
 
 .card-detailed {
